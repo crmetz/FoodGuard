@@ -1,15 +1,22 @@
 package com.app.foodguard.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Alimento {
-    private String name;
-    private int quantity;
-    private String category;
+    private int id;
+    private String nome;
+    private LocalDate dataValidade;
+    private float quantidade;
+    private String unidadeMedida;
+    private String marca;
+    private String codigoDeBarras;
+    private String observacoes;
+    private String imagem;
 }

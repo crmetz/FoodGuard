@@ -21,12 +21,27 @@ public class AlimentoService {
         if (foodList == null) {
             foodList = new ArrayList<>();
         }
+        food.setId(generateNextId());
         foodList.add(food);
         AlimentoRepository.save(foodList);
     }
 
     public void removeFood(Alimento food) {
-        foodList.remove(food);
+        foodList.removeIf(f -> f.getId() == food.getId());
         AlimentoRepository.save(foodList);
+    }
+
+    public void updateFood(Alimento updatedFood) {
+        for (int i = 0; i < foodList.size(); i++) {
+            if (foodList.get(i).getId() == updatedFood.getId()) {
+                foodList.set(i, updatedFood);
+                break;
+            }
+        }
+        AlimentoRepository.save(foodList);
+    }
+
+    private int generateNextId() {
+        return foodList.stream().mapToInt(Alimento::getId).max().orElse(0) + 1;
     }
 }

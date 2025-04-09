@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.app.foodguard.controller.AlimentoModalController"
+            stylesheets="@stylesModal.css">
+    <center>
+        <GridPane hgap="10" vgap="10" styleClass="modal-grid">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Nome:" styleClass="modal-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtNome" styleClass="modal-text-field" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Data de Validade:" styleClass="modal-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="dateValidade" styleClass="modal-date-picker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Quantidade:" styleClass="modal-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtQuantidade" styleClass="modal-text-field" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Unidade de Medida:" styleClass="modal-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtUnidadeMedida" styleClass="modal-text-field" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Marca:" styleClass="modal-label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtMarca" styleClass="modal-text-field" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Código de Barras:" styleClass="modal-label" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtCodigoDeBarras" styleClass="modal-text-field" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <Label text="Observações:" styleClass="modal-label" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextArea fx:id="txtObservacoes" styleClass="modal-text-area" prefRowCount="3" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+            <Label text="URL da Imagem:" styleClass="modal-label" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtImagem" styleClass="modal-text-field" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="modal-button-container">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Button text="Cancelar" onAction="#onCancelar" styleClass="modal-button cancel"/>
+            <Button text="Salvar" onAction="#onSalvar" defaultButton="true" styleClass="modal-button save"/>
+        </HBox>
+    </bottom>
+</BorderPane>

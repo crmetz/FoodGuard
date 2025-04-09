@@ -2,72 +2,130 @@ package com.app.foodguard.controller;
 
 import com.app.foodguard.model.Alimento;
 import com.app.foodguard.service.AlimentoService;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AlimentoController {
-    @FXML private TableView<Alimento> foodTable;
-    @FXML private TableColumn<Alimento, String> nameColumn;
-    @FXML private TableColumn<Alimento, Integer> quantityColumn;
-    @FXML private TableColumn<Alimento, String> categoryColumn;
-    @FXML private TextField nameField;
-    @FXML private TextField quantityField;
-    @FXML private TextField categoryField;
-    @FXML private Button addButton;
-    @FXML private Button deleteButton;
+
+    @FXML private TableView<Alimento> tabelaAlimentos;
+    @FXML private TableColumn<Alimento, Integer> colId;
+    @FXML private TableColumn<Alimento, String> colNome;
+    @FXML private TableColumn<Alimento, String> colDataValidade;
+    @FXML private TableColumn<Alimento, Float> colQuantidade;
+    @FXML private TableColumn<Alimento, String> colUnidadeMedida;
+    @FXML private TableColumn<Alimento, String> colMarca;
+    @FXML private TableColumn<Alimento, String> colCodigoDeBarras;
+    @FXML private TableColumn<Alimento, String> colObservacoes;
+    @FXML private TableColumn<Alimento, String> colImagem;
+    @FXML private TableColumn<Alimento, Void> colAcoes;
 
     private AlimentoService alimentoService;
-    private ObservableList<Alimento> foodObservableList;
+    private ObservableList<Alimento> alimentos;
 
     public void initialize() {
-        // Initialize the service
         alimentoService = new AlimentoService();
+        alimentos = FXCollections.observableArrayList(alimentoService.getAllFoods());
+        tabelaAlimentos.setItems(alimentos);
 
-        // Fetch all foods, ensuring it's not null
-        foodObservableList = FXCollections.observableArrayList();
-        if (alimentoService.getAllFoods() != null) {
-            foodObservableList.addAll(alimentoService.getAllFoods());
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));
+        colDataValidade.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDataValidade().toString()));
+        colQuantidade.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getQuantidade()));
+        colUnidadeMedida.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUnidadeMedida()));
+        colMarca.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMarca()));
+        colCodigoDeBarras.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCodigoDeBarras()));
+        colObservacoes.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getObservacoes()));
+        colImagem.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getImagem()));
+
+        adicionarBotaoAcoes();
+    }
+
+    private void adicionarBotaoAcoes() {
+        colAcoes.setCellFactory(coluna -> new TableCell<>() {
+            private final Button btn = new Button("⋮");
+
+            {
+                btn.setOnAction(e -> {
+                    Alimento alimento = getTableView().getItems().get(getIndex());
+
+                    ContextMenu contextMenu = new ContextMenu();
+                    MenuItem editar = new MenuItem("Editar");
+                    MenuItem excluir = new MenuItem("Excluir");
+
+                    editar.setOnAction(ev -> abrirModalEditar(alimento));
+                    excluir.setOnAction(ev -> {
+                        alimentoService.removeFood(alimento);
+                        alimentos.remove(alimento);
+                    });
+
+                    contextMenu.getItems().addAll(editar, excluir);
+                    contextMenu.show(btn, Side.BOTTOM, 0, 0);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean vazio) {
+                super.updateItem(item, vazio);
+                if (vazio) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btn);
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void abrirModalAdicionarAlimento() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/Alimento/alimento-modal-view.fxml"));
+            Parent root = loader.load();
+
+            // Você pode passar o service ou observable list via controller aqui
+            AlimentoModalController controller = loader.getController();
+            controller.setAlimentoService(alimentoService);
+            controller.setAlimentos(alimentos);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Adicionar Alimento");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        // Set cell value factories for table columns
-        nameColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getName()));
-        quantityColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getQuantity()));
-        categoryColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCategory()));
-
-        // Set the table items to the observable list
-        foodTable.setItems(foodObservableList);
     }
 
-    @FXML
-    private void handleAddFood() {
-        String name = nameField.getText();
-        int quantity = Integer.parseInt(quantityField.getText());
-        String category = categoryField.getText();
+    private void abrirModalEditar(Alimento alimento) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/Alimento/alimento-modal-view.fxml"));
+            Parent root = loader.load();
 
-        // Create a new food item
-        Alimento newFood = new Alimento(name, quantity, category);
+            AlimentoModalController controller = loader.getController();
+            controller.setAlimentoExistente(alimento);
+            controller.setAlimentoService(alimentoService);
+            controller.setAlimentos(alimentos);
 
-        // Add the new food to the service and observable list
-        alimentoService.addFood(newFood);
-        foodObservableList.add(newFood);
-
-        // Clear the input fields
-        nameField.clear();
-        quantityField.clear();
-        categoryField.clear();
-    }
-
-    @FXML
-    private void handleDeleteFood(MouseEvent event) {
-        // Get the selected food item
-        Alimento selectedFood = foodTable.getSelectionModel().getSelectedItem();
-        if (selectedFood != null) {
-            // Remove the food from the service and observable list
-            alimentoService.removeFood(selectedFood);
-            foodObservableList.remove(selectedFood);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Editar Alimento");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

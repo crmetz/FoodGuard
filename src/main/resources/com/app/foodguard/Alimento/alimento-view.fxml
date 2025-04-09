@@ -3,22 +3,36 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.app.foodguard.controller.AlimentoController">
-    <TableView fx:id="foodTable">
-        <columns>
-            <TableColumn fx:id="nameColumn" text="Name" />
-            <TableColumn fx:id="quantityColumn" text="Quantity" />
-            <TableColumn fx:id="categoryColumn" text="Category" />
-        </columns>
-    </TableView>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.app.foodguard.controller.AlimentoController"  stylesheets="@styles.css"
+>
 
-    <HBox spacing="5">
-        <TextField fx:id="nameField" promptText="Name" />
-        <TextField fx:id="quantityField" promptText="Quantity" />
-        <TextField fx:id="categoryField" promptText="Category" />
-        <Button fx:id="addButton" text="Add" onAction="#handleAddFood"/>
-    </HBox>
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="top-pane">
+            <Label text="Painel de Gerenciamento de Alimentos" styleClass="header-label"/>
 
-    <Button fx:id="deleteButton" text="Delete Selected" onMouseClicked="#handleDeleteFood"/>
-</VBox>
+            <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
+
+            <Button text="Adicionar Alimento" onAction="#abrirModalAdicionarAlimento" />
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" styleClass="center-pane">
+
+            <TableView fx:id="tabelaAlimentos" prefWidth="800" prefHeight="600" style="-fx-table-cell-border-color: transparent;">
+                <columns>
+                    <TableColumn text="ID" fx:id="colId" prefWidth="50" />
+                    <TableColumn text="Nome" fx:id="colNome" prefWidth="120" />
+                    <TableColumn text="Validade" fx:id="colDataValidade" prefWidth="100" />
+                    <TableColumn text="Qtd." fx:id="colQuantidade" prefWidth="60" />
+                    <TableColumn text="Unidade" fx:id="colUnidadeMedida" prefWidth="80" />
+                    <TableColumn text="Marca" fx:id="colMarca" prefWidth="100" />
+                    <TableColumn text="Código de Barras" fx:id="colCodigoDeBarras" prefWidth="120" />
+                    <TableColumn text="Observações" fx:id="colObservacoes" prefWidth="150" />
+                    <TableColumn text="Imagem" fx:id="colImagem" prefWidth="100" />
+                    <TableColumn text="Ações" fx:id="colAcoes" prefWidth="80" />
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>
