@@ -11,7 +11,7 @@
 }
 
 .header-label {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
@@ -19,7 +19,7 @@
 /* Estilo dos botões */
 .button {
     -fx-background-color: #3498db;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
     -fx-padding: 8px 16px;
     -fx-background-radius: 4px;
