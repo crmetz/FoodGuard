@@ -13,12 +13,12 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        loadScene("alimento-view.fxml");
+        loadScene("dashboard/dashboard-view.fxml");
     }
 
     public static void loadScene(String fxmlFile) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/com/app/foodguard/Alimento/" + fxmlFile));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/com/app/foodguard/" + fxmlFile));
             Scene scene = new Scene(fxmlLoader.load());
             primaryStage.setScene(scene);
             primaryStage.show();

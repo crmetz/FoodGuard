@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.app.foodguard.controller.DashboardController" stylesheets="@styles.css">
+    <left>
+        <!-- Menu Lateral -->
+        <VBox spacing="20" styleClass="sidebar" prefWidth="200">
+            <!-- Logo e Nome -->
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="logo-container">
+                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
+                    <image>
+<!--                        <Image url="@../images/logo.png"/>-->
+                    </image>
+                </ImageView>
+                <Label text="FoodGuard" styleClass="logo-title"/>
+            </HBox>
+
+            <!-- Links do Menu -->
+            <VBox spacing="10" styleClass="menu-links">
+                <Button text="Alimentos" onAction="#loadAlimentos" styleClass="menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="APPLE" size="1.2em"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Estoque" onAction="#loadEstoque" styleClass="menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="BOXES" size="1.2em"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Receita" onAction="#loadReceita" styleClass="menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="BOOK" size="1.2em"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Desperdícios" onAction="#loadDesperdicios" styleClass="menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TRASH" size="1.2em"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Doações" onAction="#loadDoacoes" styleClass="menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="HANDS_HELPING" size="1.2em"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Ongs" onAction="#loadOngs" styleClass="menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="USERS" size="1.2em"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Relatórios" onAction="#loadRelatorios" styleClass="menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="CHART_BAR" size="1.2em"/>
+                    </graphic>
+                </Button>
+            </VBox>
+
+
+            <!-- Espaçador para empurrar o botão para baixo -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Profile Button with icon -->
+            <Button fx:id="profileButton" onAction="#loadPerfil" styleClass="profile-button"/>
+        </VBox>
+    </left>
+
+    <center>
+        <!-- Conteúdo Principal -->
+        <BorderPane styleClass="main-content">
+            <top>
+                <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="top-bar">
+                    <Label fx:id="greetingLabel" text="Olá, Usuário" styleClass="greeting-label"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <!-- Notification Button with icon -->
+                    <Button fx:id="notificationButton" styleClass="notification-button"/>
+                </HBox>
+            </top>
+
+            <center>
+                <!-- Área Dinâmica para Conteúdo -->
+                <StackPane fx:id="dynamicContent">
+                    <!-- Conteúdo Inicial (Gráficos/Calendário) -->
+                    <VBox spacing="20" styleClass="charts-calendar-placeholder">
+                        <Label text="Gráficos (Placeholder)" styleClass="placeholder-text"/>
+                        <Label text="Calendário (Placeholder)" styleClass="placeholder-text"/>
+                    </VBox>
+                </StackPane>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>
