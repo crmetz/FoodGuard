@@ -6,11 +6,12 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.app.foodguard.controller.DashboardController" stylesheets="@styles.css">
+
     <left>
         <!-- Menu Lateral -->
         <VBox spacing="20" styleClass="sidebar" prefWidth="200">
             <!-- Logo e Nome -->
-            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="logo-container">
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="logo-container" onMouseClicked="#loadDashboardContent">
                 <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
                     <image>
 <!--                        <Image url="@../images/logo.png"/>-->
@@ -24,6 +25,12 @@
                 <Button text="Alimentos" onAction="#loadAlimentos" styleClass="menu-button">
                     <graphic>
                         <FontAwesomeIconView glyphName="APPLE" size="1.2em"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Categorias de alimentos" onAction="#loadCategorias" styleClass="menu-button">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="CHART_BAR" size="1.2em"/>
                     </graphic>
                 </Button>
 
@@ -69,30 +76,23 @@
             <Region VBox.vgrow="ALWAYS"/>
 
             <!-- Profile Button with icon -->
-            <Button fx:id="profileButton" onAction="#loadPerfil" styleClass="profile-button"/>
-        </VBox>
+            <Button text="Perfil" onAction="#loadPerfil" styleClass="profile-button">
+                <graphic>
+                    <FontAwesomeIconView glyphName="USER" size="1.2em"/>
+                </graphic>
+            </Button>
+
+    </VBox>
     </left>
 
     <center>
         <!-- Conteúdo Principal -->
         <BorderPane styleClass="main-content">
-            <top>
-                <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="top-bar">
-                    <Label fx:id="greetingLabel" text="Olá, Usuário" styleClass="greeting-label"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <!-- Notification Button with icon -->
-                    <Button fx:id="notificationButton" styleClass="notification-button"/>
-                </HBox>
-            </top>
-
             <center>
                 <!-- Área Dinâmica para Conteúdo -->
                 <StackPane fx:id="dynamicContent">
-                    <!-- Conteúdo Inicial (Gráficos/Calendário) -->
-                    <VBox spacing="20" styleClass="charts-calendar-placeholder">
-                        <Label text="Gráficos (Placeholder)" styleClass="placeholder-text"/>
-                        <Label text="Calendário (Placeholder)" styleClass="placeholder-text"/>
-                    </VBox>
+
+
                 </StackPane>
             </center>
         </BorderPane>
