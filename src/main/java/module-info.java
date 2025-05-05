@@ -1,5 +1,4 @@
 module com.app.foodguard {
-    requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
 
@@ -11,6 +10,7 @@ module com.app.foodguard {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires static lombok;
+    requires de.jensd.fx.glyphs.fontawesome;
 
     opens com.app.foodguard to javafx.fxml;
     opens com.app.foodguard.controller to javafx.fxml;

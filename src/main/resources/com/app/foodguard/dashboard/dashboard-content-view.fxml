@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.app.foodguard.controller.DashboardContentController">
+    <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="top-bar">
+        <Label fx:id="greetingLabel" text="Olá, Usuário" styleClass="greeting-label"/>
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button styleClass="notification-button">
+            <graphic>
+                <FontAwesomeIconView glyphName="BELL" size="1.2em" />
+            </graphic>
+        </Button>
+    </HBox>
+
+    <VBox spacing="20" styleClass="charts-calendar-placeholder">
+        <Label text="Gráficos (Placeholder)" styleClass="placeholder-text"/>
+        <Label text="Calendário (Placeholder)" styleClass="placeholder-text"/>
+    </VBox>
+</VBox>
