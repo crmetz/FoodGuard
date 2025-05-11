@@ -14,6 +14,9 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
         loadScene("dashboard/dashboard-view.fxml");
+
+        primaryStage.setMaximized(true);
+        primaryStage.setFullScreen(false);
     }
 
     public static void loadScene(String fxmlFile) {

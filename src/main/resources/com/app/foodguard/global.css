@@ -1,0 +1,144 @@
+/* Paleta Terroso-Energética */
+.root {
+    -fx-base: #F5F5F5;          /* Define base para derivação de cores */
+    -fx-primary: #F5F5F5;       /* Fundo Principal */
+    -fx-secondary: #8AA39B;     /* Botões/Cabeçalhos */
+    -fx-accent: #3D3D3D;        /* Sidebar */
+    -fx-highlight: #D4A373;     /* Destaques */
+    -fx-text: #2E2E2E;          /* Texto Escuro */
+    -fx-light-text: #FFFFFF;    /* Texto Claro */
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Sidebar e Conteúdo Principal */
+.sidebar {
+    -fx-background-color: -fx-accent;
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
+
+.main-content {
+    -fx-background-color: -fx-primary;
+    -fx-padding: 20px;
+}
+
+/* Cabeçalho */
+.header-pane {
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+}
+
+.header-label {
+    -fx-text-fill: -fx-accent;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Botões */
+.button {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: -fx-highlight;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: derive(-fx-secondary, -15%);
+}
+
+/* Campos de Formulário */
+.form-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: -fx-highlight;
+    -fx-border-radius: 3px;
+    -fx-padding: 8px;
+}
+
+/* Tabela com Linhas Alternadas e Seleção */
+.table-view {
+    -fx-control-inner-background: #FFFFFF;
+    -fx-control-inner-background-alt: #FAFAFA;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1px;
+    -fx-table-cell-border-color: transparent;
+}
+/* Força alternância caso o lookup não seja aplicado */
+.table-row-cell:even {
+    -fx-background-color: -fx-control-inner-background;
+}
+.table-row-cell:odd {
+    -fx-background-color: -fx-control-inner-background-alt;
+}
+
+.table-view .column-header {
+    -fx-background-color: #F0F0F0;
+    -fx-text-fill: -fx-text;
+    -fx-font-size: 14px;
+}
+
+.table-view .column-header .label {
+    -fx-alignment: CENTER-LEFT;
+    -fx-text-alignment: left;
+}
+
+/* Seleção */
+.table-row-cell:filled:selected {
+    -fx-background-color: -fx-selection-bar-non-focused;
+}
+
+.table-row-cell:filled:selected:focused {
+    -fx-background-color: -fx-selection-bar;
+}
+
+.table-cell {
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 8px;
+}
+
+/* Menu Lateral */
+.logo-title {
+    -fx-text-fill: -fx-light-text;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-highlight;
+    -fx-font-size: 14px;
+    -fx-border-radius: 4px;
+    -fx-graphic-text-gap: 12px;
+}
+
+.menu-button .glyph-icon {
+    -fx-fill: -fx-highlight;
+}
+
+.menu-button:hover {
+    -fx-background-color: rgba(212, 163, 115, 0.1);
+    -fx-text-fill: derive(-fx-highlight, 20%);
+}
+
+.menu-button:hover .glyph-icon {
+    -fx-fill: derive(-fx-highlight, 20%);
+}
+
+/* Botão de Perfil */
+.profile-button {
+    -fx-background-color: -fx-highlight;
+    -fx-text-fill: -fx-accent;
+}
+
+.profile-button .glyph-icon {
+    -fx-fill: -fx-accent;
+}
+
+.profile-button:hover {
+    -fx-background-color: derive(-fx-highlight, -10%);
+}
+
+.profile-button:hover .glyph-icon {
+    -fx-fill: derive(-fx-accent, 20%);
+}

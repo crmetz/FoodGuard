@@ -94,7 +94,6 @@ public class AlimentoController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/alimento/alimento-modal-view.fxml"));
             Parent root = loader.load();
 
-            // Você pode passar o service ou observable list via controller aqui
             AlimentoModalController controller = loader.getController();
             controller.setAlimentoService(alimentoService);
             controller.setAlimentos(alimentos);
