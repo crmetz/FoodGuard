@@ -1,17 +1,16 @@
 /* Paleta Terroso-Energética */
 .root {
-    -fx-primary: #F5F5F5;       /* Branco Suave (Fundo Principal) */
-    -fx-secondary: #8AA39B;     /* Verde Musgo (Botões/Cabeçalhos) */
-    -fx-accent: #3D3D3D;        /* Cinza Escuro (Sidebar) */
-    -fx-highlight: #D4A373;     /* Terracota (Destaques) */
+    -fx-base: #F5F5F5;          /* Define base para derivação de cores */
+    -fx-primary: #F5F5F5;       /* Fundo Principal */
+    -fx-secondary: #8AA39B;     /* Botões/Cabeçalhos */
+    -fx-accent: #3D3D3D;        /* Sidebar */
+    -fx-highlight: #D4A373;     /* Destaques */
     -fx-text: #2E2E2E;          /* Texto Escuro */
     -fx-light-text: #FFFFFF;    /* Texto Claro */
-
     -fx-font-family: 'Segoe UI', Arial, sans-serif;
-    -fx-base: -fx-primary;
 }
 
-/* Estrutura Principal */
+/* Sidebar e Conteúdo Principal */
 .sidebar {
     -fx-background-color: -fx-accent;
     -fx-padding: 20px;
@@ -23,9 +22,8 @@
     -fx-padding: 20px;
 }
 
-/* Componentes Comuns */
+/* Cabeçalho */
 .header-pane {
-    /*-fx-background-color: -fx-secondary;*/
     -fx-padding: 15px;
     -fx-spacing: 10px;
 }
@@ -36,6 +34,7 @@
     -fx-font-weight: bold;
 }
 
+/* Botões */
 .button {
     -fx-background-color: -fx-accent;
     -fx-text-fill: -fx-highlight;
@@ -49,11 +48,28 @@
     -fx-background-color: derive(-fx-secondary, -15%);
 }
 
-/* Tabelas (Cores Neutras) */
-.table-view {
+/* Campos de Formulário */
+.form-field {
     -fx-background-color: #FFFFFF;
+    -fx-border-color: -fx-highlight;
+    -fx-border-radius: 3px;
+    -fx-padding: 8px;
+}
+
+/* Tabela com Linhas Alternadas e Seleção */
+.table-view {
+    -fx-control-inner-background: #FFFFFF;
+    -fx-control-inner-background-alt: #FAFAFA;
     -fx-border-color: #E0E0E0;
     -fx-border-width: 1px;
+    -fx-table-cell-border-color: transparent;
+}
+/* Força alternância caso o lookup não seja aplicado */
+.table-row-cell:even {
+    -fx-background-color: -fx-control-inner-background;
+}
+.table-row-cell:odd {
+    -fx-background-color: -fx-control-inner-background-alt;
 }
 
 .table-view .column-header {
@@ -62,23 +78,22 @@
     -fx-font-size: 14px;
 }
 
-.table-row-cell {
-    -fx-background-color: #FFFFFF;
+.table-view .column-header .label {
+    -fx-alignment: CENTER-LEFT;
+    -fx-text-alignment: left;
 }
 
-.table-row-cell:odd {
-    -fx-background-color: #FAFAFA;
+/* Seleção */
+.table-row-cell:filled:selected {
+    -fx-background-color: -fx-selection-bar-non-focused;
 }
 
-.table-row-cell:selected {
-    -fx-background-color: #F0E6D3;
+.table-row-cell:filled:selected:focused {
+    -fx-background-color: -fx-selection-bar;
 }
 
-/* Formulários */
-.form-field {
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: #D4A373;
-    -fx-border-radius: 3px;
+.table-cell {
+    -fx-alignment: CENTER-LEFT;
     -fx-padding: 8px;
 }
 
@@ -89,36 +104,35 @@
     -fx-font-weight: bold;
 }
 
-
 .menu-button {
     -fx-background-color: transparent;
-    -fx-text-fill: -fx-highlight; /* Texto em Terracota */
+    -fx-text-fill: -fx-highlight;
     -fx-font-size: 14px;
     -fx-border-radius: 4px;
-    -fx-graphic-text-gap: 12px; /* Espaço entre ícone e texto */
+    -fx-graphic-text-gap: 12px;
 }
 
 .menu-button .glyph-icon {
-    -fx-fill: -fx-highlight; /* Ícones em Terracota */
+    -fx-fill: -fx-highlight;
 }
 
 .menu-button:hover {
     -fx-background-color: rgba(212, 163, 115, 0.1);
-    -fx-text-fill: derive(-fx-highlight, 20%); /* Texto mais claro */
+    -fx-text-fill: derive(-fx-highlight, 20%);
 }
 
 .menu-button:hover .glyph-icon {
-    -fx-fill: derive(-fx-highlight, 20%); /* Ícones mais claros */
+    -fx-fill: derive(-fx-highlight, 20%);
 }
 
 /* Botão de Perfil */
 .profile-button {
-    -fx-background-color: -fx-highlight; /* Fundo Terracota */
-    -fx-text-fill: -fx-accent; /* Texto cinza escuro */
+    -fx-background-color: -fx-highlight;
+    -fx-text-fill: -fx-accent;
 }
 
 .profile-button .glyph-icon {
-    -fx-fill: -fx-accent; /* Ícone cinza escuro */
+    -fx-fill: -fx-accent;
 }
 
 .profile-button:hover {

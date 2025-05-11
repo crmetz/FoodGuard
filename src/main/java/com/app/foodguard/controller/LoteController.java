@@ -3,6 +3,7 @@ package com.app.foodguard.controller;
 import com.app.foodguard.model.Lote;
 import com.app.foodguard.service.AlimentoService;
 import com.app.foodguard.service.LoteService;
+import com.app.foodguard.utils.TableViewUtils;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,7 +14,6 @@ import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,8 +44,11 @@ public class LoteController {
     private void configurarTabela() {
         lotes = FXCollections.observableArrayList();
         tabelaLotes.setItems(lotes);
+        tabelaLotes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+
+        colCodigo.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getCodigo()));
+        colCodigo.setMaxWidth(1f * Integer.MAX_VALUE);
         colQuantidade.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getQuantidade()));
         colDataValidade.setCellValueFactory(data -> new SimpleStringProperty(
                 data.getValue().getDataValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
@@ -53,6 +56,13 @@ public class LoteController {
         colDataEntrada.setCellValueFactory(data -> new SimpleStringProperty(
                 data.getValue().getDataEntrada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         ));
+
+
+        TableViewUtils.alinharColunaAEsquerda(colQuantidade);
+        TableViewUtils.alinharColunaAEsquerda(colCodigo);
+        TableViewUtils.alinharColunaAEsquerda(colDataValidade);
+        TableViewUtils.alinharColunaAEsquerda(colDataEntrada);
+
 
         adicionarBotaoAcoes();
     }
@@ -105,7 +115,12 @@ public class LoteController {
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btn);
+                    setStyle("-fx-alignment: CENTER-RIGHT;");
+                }
             }
         });
     }
@@ -150,4 +165,5 @@ public class LoteController {
             e.printStackTrace();
         }
     }
+
 }
