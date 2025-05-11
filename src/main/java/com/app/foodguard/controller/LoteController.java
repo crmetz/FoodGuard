@@ -1,0 +1,153 @@
+package com.app.foodguard.controller;
+
+import com.app.foodguard.model.Lote;
+import com.app.foodguard.service.AlimentoService;
+import com.app.foodguard.service.LoteService;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
+
+public class LoteController {
+
+    @FXML private ComboBox<String> comboAlimentos;
+    @FXML private TableView<Lote> tabelaLotes;
+    @FXML private TableColumn<Lote, String> colCodigo;
+    @FXML private TableColumn<Lote, Float> colQuantidade;
+    @FXML private TableColumn<Lote, String> colDataValidade;
+    @FXML private TableColumn<Lote, String> colDataEntrada;
+    @FXML private TableColumn<Lote, Void> colAcoes;
+
+    private final LoteService loteService = new LoteService();
+    private ObservableList<Lote> lotes;
+
+    @FXML
+    public void initialize() {
+        configurarTabela();
+        carregarComboAlimentos();
+        configurarListeners();
+    }
+
+    private void configurarTabela() {
+        lotes = FXCollections.observableArrayList();
+        tabelaLotes.setItems(lotes);
+
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        colQuantidade.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getQuantidade()));
+        colDataValidade.setCellValueFactory(data -> new SimpleStringProperty(
+                data.getValue().getDataValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        ));
+        colDataEntrada.setCellValueFactory(data -> new SimpleStringProperty(
+                data.getValue().getDataEntrada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        ));
+
+        adicionarBotaoAcoes();
+    }
+
+    private void carregarComboAlimentos() {
+        comboAlimentos.setItems(FXCollections.observableArrayList(
+                new AlimentoService().getAllFoods().stream()
+                        .map(a -> a.getId() + " - " + a.getNome())
+                        .collect(Collectors.toList())
+        ));
+    }
+
+    private void configurarListeners() {
+        comboAlimentos.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                int alimentoId = Integer.parseInt(newVal.split("-")[0].trim());
+                atualizarTabelaLotes(alimentoId);
+                tabelaLotes.setVisible(true);
+            }
+        });
+    }
+
+    private void atualizarTabelaLotes(int alimentoId) {
+        lotes.setAll(loteService.getLotesPorAlimento(alimentoId));
+    }
+
+    private void adicionarBotaoAcoes() {
+        colAcoes.setCellFactory(coluna -> new TableCell<>() {
+            private final Button btn = new Button("⋮");
+
+            {
+                btn.setOnAction(e -> {
+                    Lote lote = getTableView().getItems().get(getIndex());
+
+                    ContextMenu menu = new ContextMenu();
+                    MenuItem editar = new MenuItem("Editar");
+                    MenuItem excluir = new MenuItem("Excluir");
+
+                    editar.setOnAction(ev -> abrirModalEditarLote(lote));
+                    excluir.setOnAction(ev -> {
+                        loteService.removeLote(lote.getId());
+                        lotes.remove(lote);
+                    });
+
+                    menu.getItems().addAll(editar, excluir);
+                    menu.show(btn, Side.BOTTOM, 0, 0);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
+            }
+        });
+    }
+
+    @FXML
+    private void abrirModalAdicionarLote() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/lote/lote-modal-view.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Novo Lote");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            if (comboAlimentos.getValue() != null) {
+                int alimentoId = Integer.parseInt(comboAlimentos.getValue().split("-")[0].trim());
+                atualizarTabelaLotes(alimentoId);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirModalEditarLote(Lote lote) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/lote/lote-modal-view.fxml"));
+            Parent root = loader.load();
+
+            LoteModalController controller = loader.getController();
+            controller.setLoteExistente(lote);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Editar Lote");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            atualizarTabelaLotes(lote.getAlimentoId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

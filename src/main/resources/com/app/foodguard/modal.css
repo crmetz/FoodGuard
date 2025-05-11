@@ -1,0 +1,75 @@
+/* Modal - Paleta Terroso */
+.modal-grid {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #D4A373;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 20px;
+    -fx-hgap: 15px;
+    -fx-vgap: 10px;
+}
+
+.modal-label {
+    -fx-text-fill: #3D3D3D;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.form-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #8AA39B;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+.form-field:focused {
+    -fx-border-color: #D4A373;
+    -fx-effect: dropshadow(three-pass-box, rgba(212,163,115,0.2), 0, 0, 0, 2);
+}
+
+.modal-button-container {
+    -fx-background-color: #F5F5F5;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.modal-button {
+    -fx-min-width: 100px;
+    -fx-padding: 10px 20px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.modal-button.save {
+    -fx-background-color: #D4A373;
+    -fx-text-fill: #3D3D3D;
+}
+
+.modal-button.cancel {
+    -fx-background-color: #8AA39B;
+    -fx-text-fill: #FFFFFF;
+}
+
+.modal-button:hover {
+    -fx-opacity: 0.9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+/* Estilo específico para DatePicker */
+.date-picker {
+    -fx-border-color: #8AA39B;
+    -fx-background-color: #FFFFFF;
+}
+
+/* Estilo específico para TextArea */
+.text-area {
+    -fx-border-color: #8AA39B;
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+

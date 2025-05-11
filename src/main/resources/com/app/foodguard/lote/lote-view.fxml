@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.foodguard.controller.LoteController" stylesheets="@../global.css">
+
+    <top>
+        <HBox styleClass="header-pane" spacing="10">
+            <Label styleClass="header-label" text="Gerenciamento de Estoque"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button styleClass="button" onAction="#abrirModalAdicionarLote" text="Adicionar Lote"/>
+            <ComboBox styleClass="form-field" fx:id="comboAlimentos" prefWidth="200"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TableView fx:id="tabelaLotes" styleClass="table-view">
+            <columns>
+                <TableColumn styleClass="column-header" fx:id="colCodigo" prefWidth="150" text="Código"/>
+                <TableColumn styleClass="column-header" fx:id="colQuantidade" prefWidth="100" text="Quantidade"/>
+                <TableColumn styleClass="column-header" fx:id="colDataValidade" prefWidth="120" text="Validade"/>
+                <TableColumn styleClass="column-header" fx:id="colDataEntrada" prefWidth="120" text="Entrada"/>
+                <TableColumn styleClass="column-header" fx:id="colAcoes" prefWidth="80" text="Ações"/>
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>
