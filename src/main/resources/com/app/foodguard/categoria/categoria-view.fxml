@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.foodguard.controller.CategoriaController"
+      spacing="10" style="-fx-padding: 20; -fx-background-color: #f3ede3;">
+    <HBox alignment="TOP_RIGHT">
+        <Button text="Adicionar Categoria" onAction="#adicionarCategoria" />
+    </HBox>
+
+    <TableView fx:id="tabelaCategorias" prefHeight="400">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="100"/>
+            <TableColumn fx:id="colDescricao" text="Descrição" prefWidth="300"/>
+            <TableColumn fx:id="colAtivo" text="Ativo" prefWidth="150"/>
+            <TableColumn fx:id="colAcoes" text="Ações" prefWidth="150"/>
+        </columns>
+    </TableView>
+</VBox>

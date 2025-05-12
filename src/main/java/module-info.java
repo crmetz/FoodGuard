@@ -14,6 +14,8 @@ module com.app.foodguard {
 
     opens com.app.foodguard to javafx.fxml;
     opens com.app.foodguard.controller to javafx.fxml;
+    opens com.app.foodguard.model to javafx.base;
+
     exports com.app.foodguard;
     exports com.app.foodguard.controller to javafx.fxml;
 }
