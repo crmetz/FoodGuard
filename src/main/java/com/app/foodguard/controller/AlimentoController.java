@@ -39,6 +39,7 @@ public class AlimentoController {
         alimentoService = new AlimentoService();
         alimentos = FXCollections.observableArrayList(alimentoService.getAllFoods());
         tabelaAlimentos.setItems(alimentos);
+        tabelaAlimentos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));

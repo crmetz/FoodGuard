@@ -34,6 +34,8 @@ public class CategoriaController {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         colAtivo.setCellValueFactory(new PropertyValueFactory<>("ativo"));
+        tabelaCategorias.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        colDescricao.setMaxWidth(1f * Integer.MAX_VALUE);
 
         colAcoes.setCellFactory(param -> new TableCell<>() {
             private final Button btnDelete = new Button("Excluir");
