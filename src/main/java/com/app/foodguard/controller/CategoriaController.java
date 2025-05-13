@@ -1,6 +1,7 @@
 package com.app.foodguard.controller;
 
 import com.app.foodguard.model.Categoria;
+import com.app.foodguard.service.CategoriaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,11 +15,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.IOException;
 
 public class CategoriaController {
 
@@ -31,8 +28,7 @@ public class CategoriaController {
     @FXML private TableColumn<Categoria, Void> colAcoes;
 
     private final ObservableList<Categoria> listaCategorias = FXCollections.observableArrayList();
-    private final List<Integer> idsDisponiveis = new ArrayList<>();
-    private final String CSV_PATH = "src/main/resources/csv/categorias.csv";
+    private final CategoriaService categoriaService = new CategoriaService();
 
     public void initialize() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -47,10 +43,8 @@ public class CategoriaController {
                 btnDelete.setOnAction(event -> {
                     Categoria categoria = getTableView().getItems().get(getIndex());
                     if (categoria != null) {
+                        categoriaService.removeCategoria(categoria);
                         listaCategorias.remove(categoria);
-                        idsDisponiveis.add(categoria.getId());
-                        Collections.sort(idsDisponiveis);
-                        salvarCSV();
                     }
                 });
             }
@@ -70,8 +64,8 @@ public class CategoriaController {
                     Categoria categoria = getTableView().getItems().get(getIndex());
                     if (categoria != null) {
                         categoria.setAtivo(categoria.getAtivo().equals("Sim") ? "Não" : "Sim");
+                        categoriaService.updateCategoria(categoria);
                         atualizarBotao(categoria, btnAtivo);
-                        salvarCSV();
                     }
                 });
             }
@@ -89,8 +83,8 @@ public class CategoriaController {
             }
         });
 
+        listaCategorias.addAll(categoriaService.getAllCategorias());
         tabelaCategorias.setItems(listaCategorias);
-        carregarCSV();
     }
 
     private void atualizarBotao(Categoria categoria, Button botao) {
@@ -118,10 +112,8 @@ public class CategoriaController {
             CategoriaModalController controller = loader.getController();
             Categoria novaCategoria = controller.getNovaCategoria();
             if (novaCategoria != null) {
-                int novoId = idsDisponiveis.isEmpty() ? listaCategorias.size() + 1 : idsDisponiveis.remove(0);
-                novaCategoria.setId(novoId);
+                categoriaService.addCategoria(novaCategoria);
                 listaCategorias.add(novaCategoria);
-                salvarCSV();
                 tabelaCategorias.refresh();
             }
         } catch (IOException e) {
@@ -132,58 +124,5 @@ public class CategoriaController {
     @FXML
     public void atualizarToggle() {
         toggleAtivo.setText(toggleAtivo.isSelected() ? "Sim" : "Não");
-    }
-
-    private void limparCampos() {
-        txtDescricao.clear();
-        toggleAtivo.setSelected(true);
-        toggleAtivo.setText("Sim");
-    }
-
-    private void mostrarAlerta(String titulo, String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
-
-    private void carregarCSV() {
-        File file = new File(CSV_PATH);
-        if (!file.exists()) return;
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            listaCategorias.clear();
-            idsDisponiveis.clear();
-            List<String> linhas = br.lines().skip(1).collect(Collectors.toList());
-            for (String linha : linhas) {
-                String[] campos = linha.split(",");
-                int id = Integer.parseInt(campos[0]);
-                String descricao = campos[1];
-                String ativo = campos[2];
-                listaCategorias.add(new Categoria(id, descricao, ativo));
-            }
-
-            for (int i = 1; i <= listaCategorias.size(); i++) {
-                int finalI = i;
-                if (listaCategorias.stream().noneMatch(c -> c.getId() == finalI)) {
-                    idsDisponiveis.add(finalI);
-                }
-            }
-            Collections.sort(idsDisponiveis);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void salvarCSV() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(CSV_PATH))) {
-            bw.write("id,descricao,ativo\n");
-            for (Categoria cat : listaCategorias) {
-                bw.write(cat.toCSV() + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

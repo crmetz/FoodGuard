@@ -10,17 +10,17 @@
     <Label text="Adicionar Categoria" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
 
     <HBox spacing="10">
-        <Label text="Descrição:" />
-        <TextField fx:id="txtDescricao" prefWidth="200" />
+        <Label text="Descrição:" styleClass="modal-label"/>
+        <TextField fx:id="txtDescricao" styleClass="form-field" />
     </HBox>
 
     <HBox spacing="10">
-        <Label text="Ativo:" />
+        <Label text="Ativo:" styleClass="modal-label"/>
         <ToggleButton fx:id="toggleAtivo" text="Sim" selected="true" onAction="#atualizarToggle" />
     </HBox>
 
     <HBox spacing="10">
-        <Button text="Cancelar" onAction="#cancelar" />
-        <Button text="Salvar" onAction="#salvarCategoria" />
+        <Button text="Cancelar" onAction="#cancelar" styleClass="modal-button cancel"/>
+        <Button text="Salvar" onAction="#salvarCategoria" styleClass="modal-button save"/>
     </HBox>
 </VBox>
