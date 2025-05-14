@@ -29,6 +29,9 @@
             <Label text="Marca:" styleClass="modal-label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
             <TextField fx:id="txtMarca" styleClass="form-field" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
+            <Label text="Categoria:" styleClass="modal-label" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="comboCategoria" styleClass="form-field" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
             <Label text="Código de Barras:" styleClass="modal-label" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
             <TextField fx:id="txtCodigoDeBarras" styleClass="form-field" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 

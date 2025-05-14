@@ -2,6 +2,7 @@ package com.app.foodguard.controller;
 
 import com.app.foodguard.model.Alimento;
 import com.app.foodguard.service.AlimentoService;
+import com.app.foodguard.service.CategoriaService;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -21,11 +22,22 @@ public class AlimentoModalController {
     @FXML private TextField txtCodigoDeBarras;
     @FXML private TextArea txtObservacoes;
     @FXML private TextField txtImagem;
+    @FXML private ComboBox<String> comboCategoria;
 
     private AlimentoService alimentoService;
     private ObservableList<Alimento> alimentos;
     private Alimento alimentoExistente;
+    private CategoriaService categoriaService = new CategoriaService();
 
+    @FXML
+    public void initialize() {
+        carregarCategoriasAtivas();
+    }
+
+    private void carregarCategoriasAtivas() {
+        comboCategoria.getItems().clear();
+        categoriaService.getCategoriasAtivas().forEach(categoria -> comboCategoria.getItems().add(categoria.getDescricao()));
+    }
 
     public void setAlimentoExistente(Alimento alimento) {
         this.alimentoExistente = alimento;
@@ -54,6 +66,7 @@ public class AlimentoModalController {
             String codigo = txtCodigoDeBarras.getText();
             String observacoes = txtObservacoes.getText();
             String imagem = txtImagem.getText();
+            String categoria = comboCategoria.getValue();
 
             if (alimentoExistente != null) {
                 // Atualizar alimento existente
@@ -65,6 +78,7 @@ public class AlimentoModalController {
                 alimentoExistente.setCodigoDeBarras(codigo);
                 alimentoExistente.setObservacoes(observacoes);
                 alimentoExistente.setImagem(imagem);
+                alimentoExistente.setCategoria(categoria);
 
                 alimentoService.updateFood(alimentoExistente);
                 tabelaAtualizar(); // força refresh
@@ -79,6 +93,7 @@ public class AlimentoModalController {
                 novo.setCodigoDeBarras(codigo);
                 novo.setObservacoes(observacoes);
                 novo.setImagem(imagem);
+                novo.setCategoria(categoria);
 
                 alimentoService.addFood(novo);
                 alimentos.add(novo);

@@ -16,6 +16,7 @@ public class Alimento {
     private float quantidade;
     private String unidadeMedida;
     private String marca;
+    private String categoria;
     private String codigoDeBarras;
     private String observacoes;
     private String imagem;

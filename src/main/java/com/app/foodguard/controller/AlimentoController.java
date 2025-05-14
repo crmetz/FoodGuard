@@ -27,6 +27,7 @@ public class AlimentoController {
     @FXML private TableColumn<Alimento, Float> colQuantidade;
     @FXML private TableColumn<Alimento, String> colUnidadeMedida;
     @FXML private TableColumn<Alimento, String> colMarca;
+    @FXML private TableColumn<Alimento, String> colCategoria;
     @FXML private TableColumn<Alimento, String> colCodigoDeBarras;
     @FXML private TableColumn<Alimento, String> colObservacoes;
     @FXML private TableColumn<Alimento, String> colImagem;
@@ -38,6 +39,7 @@ public class AlimentoController {
     public void initialize() {
         alimentoService = new AlimentoService();
         alimentos = FXCollections.observableArrayList(alimentoService.getAllFoods());
+        colCategoria.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCategoria()));
         tabelaAlimentos.setItems(alimentos);
         tabelaAlimentos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
