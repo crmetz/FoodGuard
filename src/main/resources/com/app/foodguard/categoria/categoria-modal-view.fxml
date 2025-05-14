@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.app.foodguard.controller.CategoriaModalController"
+      spacing="15" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #f3ede3;">
+
+    <Label text="Adicionar Categoria" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+    <HBox spacing="10">
+        <Label text="Descrição:" styleClass="modal-label"/>
+        <TextField fx:id="txtDescricao" styleClass="form-field" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="Ativo:" styleClass="modal-label"/>
+        <ToggleButton fx:id="toggleAtivo" text="Sim" selected="true" onAction="#atualizarToggle" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="Cancelar" onAction="#cancelar" styleClass="modal-button cancel"/>
+        <Button text="Salvar" onAction="#salvarCategoria" styleClass="modal-button save"/>
+    </HBox>
+</VBox>
