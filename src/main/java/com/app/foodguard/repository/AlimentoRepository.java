@@ -42,7 +42,7 @@ public class AlimentoRepository {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";", -1); // -1 to keep empty fields
-                if (parts.length == 9) {
+                if (parts.length == 10) {
                     Alimento alimento = new Alimento();
                     alimento.setId(Integer.parseInt(parts[0]));
                     alimento.setNome(parts[1]);
