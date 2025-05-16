@@ -45,6 +45,7 @@ public class LoteRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return lotes;
     }
 }

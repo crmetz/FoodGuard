@@ -20,8 +20,6 @@
             <Label text="Data de Validade:" styleClass="modal-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
             <DatePicker fx:id="dateValidade" styleClass="form-field" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-            <Label text="Quantidade:" styleClass="modal-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtQuantidade" styleClass="form-field" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
             <Label text="Unidade de Medida:" styleClass="modal-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
             <TextField fx:id="txtUnidadeMedida" styleClass="form-field" GridPane.rowIndex="3" GridPane.columnIndex="1"/>

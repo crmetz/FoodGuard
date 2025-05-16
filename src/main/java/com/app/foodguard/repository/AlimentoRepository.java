@@ -21,6 +21,7 @@ public class AlimentoRepository {
                                 food.getQuantidade() + ";" +
                                 food.getUnidadeMedida() + ";" +
                                 food.getMarca() + ";" +
+                                food.getCategoriaId() + ";" +
                                 food.getCodigoDeBarras() + ";" +
                                 food.getObservacoes() + ";" +
                                 food.getImagem()
@@ -49,9 +50,10 @@ public class AlimentoRepository {
                     alimento.setQuantidade(Float.parseFloat(parts[3]));
                     alimento.setUnidadeMedida(parts[4]);
                     alimento.setMarca(parts[5]);
-                    alimento.setCodigoDeBarras(parts[6]);
-                    alimento.setObservacoes(parts[7]);
-                    alimento.setImagem(parts[8]);
+                    alimento.setCategoriaId(Integer.parseInt(parts[6]));
+                    alimento.setCodigoDeBarras(parts[7]);
+                    alimento.setObservacoes(parts[8]);
+                    alimento.setImagem(parts[9]);
                     foods.add(alimento);
                 }
             }

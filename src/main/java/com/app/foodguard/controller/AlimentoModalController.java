@@ -16,7 +16,6 @@ public class AlimentoModalController {
 
     @FXML private TextField txtNome;
     @FXML private DatePicker dateValidade;
-    @FXML private TextField txtQuantidade;
     @FXML private TextField txtUnidadeMedida;
     @FXML private TextField txtMarca;
     @FXML private TextField txtCodigoDeBarras;
@@ -36,7 +35,7 @@ public class AlimentoModalController {
 
     private void carregarCategoriasAtivas() {
         comboCategoria.getItems().clear();
-        categoriaService.getCategoriasAtivas().forEach(categoria -> comboCategoria.getItems().add(categoria.getDescricao()));
+        categoriaService.getCategoriasAtivas().forEach(categoria -> comboCategoria.getItems().add(categoria.getId() + " - " + categoria.getDescricao()));
     }
 
     public void setAlimentoExistente(Alimento alimento) {
@@ -47,12 +46,19 @@ public class AlimentoModalController {
     private void preencherCampos(Alimento alimento) {
         txtNome.setText(alimento.getNome());
         dateValidade.setValue(alimento.getDataValidade());
-        txtQuantidade.setText(String.valueOf(alimento.getQuantidade()));
         txtUnidadeMedida.setText(alimento.getUnidadeMedida());
         txtMarca.setText(alimento.getMarca());
         txtCodigoDeBarras.setText(alimento.getCodigoDeBarras());
         txtObservacoes.setText(alimento.getObservacoes());
         txtImagem.setText(alimento.getImagem());
+
+        // Set categoria
+        String categoriaFormatado = categoriaService.getAllCategorias().stream()
+                .filter(a -> a.getId() == alimento.getCategoriaId())
+                .findFirst()
+                .map(a -> a.getId() + " - " + a.getDescricao())
+                .orElse("");
+        comboCategoria.setValue(categoriaFormatado);
     }
 
     @FXML
@@ -60,25 +66,29 @@ public class AlimentoModalController {
         try {
             String nome = txtNome.getText();
             LocalDate validade = dateValidade.getValue();
-            float quantidade = Float.parseFloat(txtQuantidade.getText());
             String unidadeMedida = txtUnidadeMedida.getText();
             String marca = txtMarca.getText();
             String codigo = txtCodigoDeBarras.getText();
             String observacoes = txtObservacoes.getText();
             String imagem = txtImagem.getText();
-            String categoria = comboCategoria.getValue();
+            String categoriaSelecionada = comboCategoria.getValue();
+            if (categoriaSelecionada == null || !categoriaSelecionada.contains("-")) {
+                mostrarAlerta("Categoria inválida", "Por favor, selecione uma categoria válida.");
+                return;
+            }
+
+            int categoria = Integer.parseInt(categoriaSelecionada.split("-")[0].trim());
 
             if (alimentoExistente != null) {
                 // Atualizar alimento existente
                 alimentoExistente.setNome(nome);
                 alimentoExistente.setDataValidade(validade);
-                alimentoExistente.setQuantidade(quantidade);
                 alimentoExistente.setUnidadeMedida(unidadeMedida);
                 alimentoExistente.setMarca(marca);
                 alimentoExistente.setCodigoDeBarras(codigo);
                 alimentoExistente.setObservacoes(observacoes);
                 alimentoExistente.setImagem(imagem);
-                alimentoExistente.setCategoria(categoria);
+                alimentoExistente.setCategoriaId(categoria);
 
                 alimentoService.updateFood(alimentoExistente);
                 tabelaAtualizar(); // força refresh
@@ -87,13 +97,12 @@ public class AlimentoModalController {
                 Alimento novo = new Alimento();
                 novo.setNome(nome);
                 novo.setDataValidade(validade);
-                novo.setQuantidade(quantidade);
                 novo.setUnidadeMedida(unidadeMedida);
                 novo.setMarca(marca);
                 novo.setCodigoDeBarras(codigo);
                 novo.setObservacoes(observacoes);
                 novo.setImagem(imagem);
-                novo.setCategoria(categoria);
+                novo.setCategoriaId(categoria);
 
                 alimentoService.addFood(novo);
                 alimentos.add(novo);

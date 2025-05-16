@@ -1,8 +1,9 @@
 package com.app.foodguard.controller;
 
 import com.app.foodguard.model.Alimento;
+import com.app.foodguard.model.Categoria;
 import com.app.foodguard.service.AlimentoService;
-import javafx.beans.property.SimpleObjectProperty;
+import com.app.foodguard.service.CategoriaService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AlimentoController {
 
@@ -24,7 +27,6 @@ public class AlimentoController {
     @FXML private TableColumn<Alimento, Integer> colId;
     @FXML private TableColumn<Alimento, String> colNome;
     @FXML private TableColumn<Alimento, String> colDataValidade;
-    @FXML private TableColumn<Alimento, Float> colQuantidade;
     @FXML private TableColumn<Alimento, String> colUnidadeMedida;
     @FXML private TableColumn<Alimento, String> colMarca;
     @FXML private TableColumn<Alimento, String> colCategoria;
@@ -34,19 +36,31 @@ public class AlimentoController {
     @FXML private TableColumn<Alimento, Void> colAcoes;
 
     private AlimentoService alimentoService;
+    private CategoriaService categoriaService = new CategoriaService();
     private ObservableList<Alimento> alimentos;
 
     public void initialize() {
         alimentoService = new AlimentoService();
         alimentos = FXCollections.observableArrayList(alimentoService.getAllFoods());
-        colCategoria.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCategoria()));
+
         tabelaAlimentos.setItems(alimentos);
         tabelaAlimentos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+
+        // Mapear IDs de categorias para suas descrições
+        Map<Integer, String> categoriaMap = categoriaService.getAllCategorias().stream()
+                .collect(Collectors.toMap(Categoria::getId, Categoria::getDescricao));
+
+        // Configurar a coluna de categoria para exibir a descrição
+        colCategoria.setCellValueFactory(data -> {
+            Integer categoriaId = data.getValue().getCategoriaId();
+            return new SimpleStringProperty(categoriaMap.getOrDefault(categoriaId, ""));
+        });
+
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));
         colDataValidade.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDataValidade().toString()));
-        colQuantidade.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getQuantidade()));
         colUnidadeMedida.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUnidadeMedida()));
         colMarca.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMarca()));
         colCodigoDeBarras.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCodigoDeBarras()));
