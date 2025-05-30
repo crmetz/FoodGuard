@@ -60,7 +60,7 @@ public class DashboardController {
 
     @FXML
     private void loadOngs() {
-        loadView("/com/app/foodguard/Estoque/estoque-view.fxml");
+        loadView("/com/app/foodguard/ongs/ongs-view.fxml");
     }
 
     @FXML

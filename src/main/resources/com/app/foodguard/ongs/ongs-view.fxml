@@ -26,6 +26,7 @@
     <center>
         <TableView fx:id="tabelaOngs" styleClass="table-view">
             <columns>
+                <TableColumn fx:id="colId" styleClass="column-header" text="ID"/>
                 <TableColumn fx:id="colNome" styleClass="column-header" text="Nome" />
                 <TableColumn fx:id="colContato" styleClass="column-header" text="Contato" />
                 <TableColumn fx:id="colEndereco" styleClass="column-header" text="Endereço" />
