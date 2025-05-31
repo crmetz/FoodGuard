@@ -30,6 +30,7 @@
                 <TableColumn fx:id="colNome" styleClass="column-header" text="Nome" />
                 <TableColumn fx:id="colContato" styleClass="column-header" text="Contato" />
                 <TableColumn fx:id="colEndereco" styleClass="column-header" text="Endereço" />
+                <TableColumn fx:id="colAcoes" styleClass="column-header" text="Ações" />
             </columns>
         </TableView>
     </center>
