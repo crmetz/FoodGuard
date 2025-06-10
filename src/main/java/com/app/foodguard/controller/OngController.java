@@ -81,7 +81,7 @@ public class OngController {
     @FXML
     private void abrirModalAdicionarOng() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/ong/ong-modal-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/ongs/ongs-modal-view.fxml"));
             Parent root = loader.load();
 
             OngModalController controller = loader.getController();
