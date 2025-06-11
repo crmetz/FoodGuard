@@ -14,6 +14,10 @@ public class LoteService {
         this.lotes = LoteRepository.load();
     }
 
+    public List<Lote> getAllLotes() {
+        return lotes;
+    }
+
     public void addLote(Lote lote) {
         lote.setId(gerarProximoId());
         lotes.add(lote);
