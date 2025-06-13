@@ -11,9 +11,11 @@ import java.util.stream.Collectors;
 public class CategoriaService {
     private List<Categoria> categoriaList;
     private final List<Integer> idsDisponiveis = new ArrayList<>();
+    private CategoriaRepository categoriaRepository;
 
     public CategoriaService() {
-        categoriaList = CategoriaRepository.load(); // Carrega os dados existentes
+        categoriaRepository = new CategoriaRepository();
+        categoriaList = categoriaRepository.load(); // Carrega os dados existentes
         atualizarIdsDisponiveis();
     }
 
@@ -33,14 +35,14 @@ public class CategoriaService {
         }
         categoria.setId(generateNextId());
         categoriaList.add(categoria);
-        CategoriaRepository.save(categoriaList);
+        categoriaRepository.save(categoriaList);
     }
 
     public void removeCategoria(Categoria categoria) {
         categoriaList.removeIf(c -> c.getId() == categoria.getId());
         idsDisponiveis.add(categoria.getId());
         Collections.sort(idsDisponiveis);
-        CategoriaRepository.save(categoriaList);
+        categoriaRepository.save(categoriaList);
     }
 
     public void updateCategoria(Categoria updatedCategoria) {
@@ -50,7 +52,7 @@ public class CategoriaService {
                 break;
             }
         }
-        CategoriaRepository.save(categoriaList);
+        categoriaRepository.save(categoriaList);
     }
 
     private int generateNextId() {

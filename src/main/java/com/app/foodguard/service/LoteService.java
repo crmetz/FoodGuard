@@ -9,9 +9,11 @@ import java.util.stream.Collectors;
 
 public class LoteService {
     private final List<Lote> lotes;
+    private LoteRepository loteRepository;
 
     public LoteService() {
-        this.lotes = LoteRepository.load();
+        loteRepository = new LoteRepository();
+        this.lotes = loteRepository.load();
     }
 
     public List<Lote> getAllLotes() {
@@ -52,7 +54,7 @@ public class LoteService {
     }
 
     private void salvarDados() {
-        LoteRepository.save(lotes);
+        loteRepository.save(lotes);
     }
 
     public List<Lote> getLotesPorAlimento(int alimentoId) {

@@ -8,9 +8,11 @@ import java.util.List;
 
 public class AlimentoService {
     private List<Alimento> foodList;
+    private AlimentoRepository alimentoRepository;
 
     public AlimentoService() {
-        foodList = AlimentoRepository.load(); // Load existing data
+        alimentoRepository = new AlimentoRepository();
+        foodList = alimentoRepository.load(); // Load existing data
     }
 
     public List<Alimento> getAllFoods() {
@@ -23,12 +25,12 @@ public class AlimentoService {
         }
         food.setId(generateNextId());
         foodList.add(food);
-        AlimentoRepository.save(foodList);
+        alimentoRepository.save(foodList);
     }
 
     public void removeFood(Alimento food) {
         foodList.removeIf(f -> f.getId() == food.getId());
-        AlimentoRepository.save(foodList);
+        alimentoRepository.save(foodList);
     }
 
     public void updateFood(Alimento updatedFood) {
@@ -38,7 +40,7 @@ public class AlimentoService {
                 break;
             }
         }
-        AlimentoRepository.save(foodList);
+        alimentoRepository.save(foodList);
     }
 
     private int generateNextId() {
