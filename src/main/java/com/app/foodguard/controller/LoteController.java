@@ -26,7 +26,8 @@ public class LoteController {
     @FXML private ComboBox<String> comboAlimentos;
     @FXML private TableView<Lote> tabelaLotes;
     @FXML private TableColumn<Lote, String> colCodigo;
-    @FXML private TableColumn<Lote, Float> colQuantidade;
+    @FXML private TableColumn<Lote, Float> colQtdInicial;
+    @FXML private TableColumn<Lote, Float> colQtdAtual;
     @FXML private TableColumn<Lote, String> colDataValidade;
     @FXML private TableColumn<Lote, String> colDataEntrada;
     @FXML private TableColumn<Lote, Void> colAcoes;
@@ -49,7 +50,8 @@ public class LoteController {
 
         colCodigo.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getCodigo()));
         colCodigo.setMaxWidth(1f * Integer.MAX_VALUE);
-        colQuantidade.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getQuantidade()));
+        colQtdInicial.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getQtdInicial()));
+        colQtdAtual.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getQtdAtual()));
         colDataValidade.setCellValueFactory(data -> new SimpleStringProperty(
                 data.getValue().getDataValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         ));
@@ -58,7 +60,8 @@ public class LoteController {
         ));
 
 
-        TableViewUtils.alinharColunaAEsquerda(colQuantidade);
+        TableViewUtils.alinharColunaAEsquerda(colQtdInicial);
+        TableViewUtils.alinharColunaAEsquerda(colQtdAtual);
         TableViewUtils.alinharColunaAEsquerda(colCodigo);
         TableViewUtils.alinharColunaAEsquerda(colDataValidade);
         TableViewUtils.alinharColunaAEsquerda(colDataEntrada);
