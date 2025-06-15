@@ -50,7 +50,7 @@ public class LoteModalController {
 
             comboAlimento.setValue(alimentoFormatado);
             txtCodigo.setText(lote.getCodigo());
-            txtQuantidade.setText(String.valueOf(lote.getQuantidade()));
+            txtQuantidade.setText(String.valueOf(lote.getQtdInicial()));
             dateValidade.setValue(lote.getDataValidade());
         }
     }
@@ -73,13 +73,14 @@ public class LoteModalController {
             if (loteExistente != null) {
                 loteExistente.setAlimentoId(alimentoId);
                 loteExistente.setCodigo(codigo);
-                loteExistente.setQuantidade(quantidade);
+                loteExistente.setQtdInicial(quantidade);
                 loteExistente.setDataValidade(validade);
                 loteService.updateLote(loteExistente);
             } else {
                 Lote novoLote = new Lote(
                         0,
                         alimentoId,
+                        quantidade,
                         quantidade,
                         validade,
                         LocalDate.now(),

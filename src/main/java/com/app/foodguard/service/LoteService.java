@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class LoteService {
     private final List<Lote> lotes;
-    private LoteRepository loteRepository;
+    private final LoteRepository loteRepository;
 
     public LoteService() {
         loteRepository = new LoteRepository();
@@ -35,7 +35,7 @@ public class LoteService {
             Lote lote = loteExistente.get();
             lote.setAlimentoId(loteAtualizado.getAlimentoId());
             lote.setCodigo(loteAtualizado.getCodigo());
-            lote.setQuantidade(loteAtualizado.getQuantidade());
+            lote.setQtdInicial(loteAtualizado.getQtdInicial());
             lote.setDataValidade(loteAtualizado.getDataValidade());
             salvarDados();
         }
@@ -61,5 +61,28 @@ public class LoteService {
         return lotes.stream()
                 .filter(l -> l.getAlimentoId() == alimentoId)
                 .collect(Collectors.toList());
+    }
+
+    public List<Lote> getAllLotes() {
+        return lotes;
+    }
+
+    public void updateQuantidadeAtual(int loteId, float quantidade, boolean isSubtraction) {
+        Optional<Lote> loteOptional = lotes.stream()
+                .filter(l -> l.getId() == loteId)
+                .findFirst();
+
+        if (loteOptional.isPresent()) {
+            Lote lote = loteOptional.get();
+            if (isSubtraction) {
+                if (lote.getQtdAtual() < quantidade) {
+                    throw new IllegalArgumentException("Quantidade insuficiente no lote para a subtração.");
+                }
+                lote.setQtdAtual(lote.getQtdAtual() - quantidade);
+            } else {
+                lote.setQtdAtual(lote.getQtdAtual() + quantidade);
+            }
+            salvarDados();
+        }
     }
 }

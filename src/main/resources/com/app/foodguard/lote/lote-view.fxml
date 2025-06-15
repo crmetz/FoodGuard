@@ -18,7 +18,8 @@
         <TableView fx:id="tabelaLotes" styleClass="table-view">
             <columns>
                 <TableColumn styleClass="column-header" fx:id="colCodigo" prefWidth="150" text="Código"/>
-                <TableColumn styleClass="column-header" fx:id="colQuantidade" prefWidth="100" text="Quantidade"/>
+                <TableColumn styleClass="column-header" fx:id="colQtdInicial" prefWidth="100" text="Quantidade Inicial"/>
+                <TableColumn styleClass="column-header" fx:id="colQtdAtual" prefWidth="100" text="Quantidade Atual"/>
                 <TableColumn styleClass="column-header" fx:id="colDataValidade" prefWidth="120" text="Validade"/>
                 <TableColumn styleClass="column-header" fx:id="colDataEntrada" prefWidth="120" text="Entrada"/>
                 <TableColumn styleClass="column-header" fx:id="colAcoes" prefWidth="80" />

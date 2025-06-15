@@ -12,7 +12,8 @@ import java.time.LocalDate;
 public class Lote {
     private int id;
     private int alimentoId;
-    private float quantidade;
+    private float qtdInicial;
+    private float qtdAtual;
     private LocalDate dataValidade;
     private LocalDate dataEntrada;
     private String codigo;
