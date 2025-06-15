@@ -45,7 +45,7 @@ public class DashboardController {
 
     @FXML
     private void loadReceita() {
-        loadView("/com/app/foodguard/Estoque/estoque-view.fxml");
+        loadView("/com/app/foodguard/receita/receita-view.fxml");
     }
 
     @FXML
