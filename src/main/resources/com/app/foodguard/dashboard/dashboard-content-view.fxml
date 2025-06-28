@@ -9,7 +9,7 @@
         <Label fx:id="greetingLabel" text="Olá, Usuário" styleClass="greeting-label"/>
         <Region HBox.hgrow="ALWAYS"/>
 
-        <Button styleClass="notification-button">
+        <Button fx:id="notificationButton" styleClass="notification-button">
             <graphic>
                 <FontAwesomeIconView glyphName="BELL" size="1.2em" />
             </graphic>
