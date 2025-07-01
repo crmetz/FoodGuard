@@ -16,6 +16,7 @@ public class Movimentacao {
     public Movimentacao (DesperdicioDTO desperdicioDTO) {
         this.loteId = desperdicioDTO.getLoteId();
         this.tipo = TipoSaida.DESPERDICIO;
+        this.receitaId = 0;
         this.quantidade = desperdicioDTO.getQuantidade();
         this.data = LocalDate.now();
     }
@@ -23,6 +24,7 @@ public class Movimentacao {
 
     private int id;
     private int loteId;
+    public int receitaId;
     private TipoSaida tipo;
     private float quantidade;
     private LocalDate  data;

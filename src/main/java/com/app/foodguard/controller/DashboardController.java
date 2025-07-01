@@ -65,7 +65,7 @@ public class DashboardController {
 
     @FXML
     private void loadRelatorios() {
-        loadView("/com/app/foodguard/Estoque/estoque-view.fxml");
+        loadView("/com/app/foodguard/relatorio/relatorio-view.fxml");
     }
 
     private void loadView(String fxmlPath) {

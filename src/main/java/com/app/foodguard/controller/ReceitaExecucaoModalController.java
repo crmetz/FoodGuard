@@ -139,6 +139,7 @@ public class ReceitaExecucaoModalController {
             mov.setQuantidade(quantidade);
             mov.setData(LocalDate.now());
             mov.setLoteId(lote.getId());
+            mov.setReceitaId(receita.getId());
 
             movimentacaoService.addMovimentacao(mov);
         }

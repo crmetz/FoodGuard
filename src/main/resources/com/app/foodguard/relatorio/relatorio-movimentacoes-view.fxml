@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="@../global.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.foodguard.controller.RelatorioMovimentacoesController">
+    <top>
+        <HBox styleClass="header-pane" spacing="10">
+            <Label styleClass="header-label" text="Relatório de Movimentações por Lote" />
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="10" style="-fx-padding: 20;">
+            <HBox spacing="10" style="-fx-padding: 0 0 10 0;">
+                <Label text="Selecione o Lote:" styleClass="label"/>
+                <ComboBox fx:id="comboLotes" styleClass="combo-box" />
+            </HBox>
+            <TableView fx:id="tabelaMovimentacoes" styleClass="table-view">
+                <columns>
+                    <TableColumn fx:id="colId" styleClass="column-header" text="ID" />
+                    <TableColumn fx:id="colTipo" styleClass="column-header" text="Tipo" />
+                    <TableColumn fx:id="colQuantidade" styleClass="column-header" text="Quantidade" />
+                    <TableColumn fx:id="colData" styleClass="column-header" text="Data" />
+                    <TableColumn fx:id="colReceita" styleClass="column-header" text="Receita" />
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>
