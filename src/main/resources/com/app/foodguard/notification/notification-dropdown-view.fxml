@@ -3,23 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
 <VBox xmlns:fx="http://javafx.com/fxml" stylesheets="@../global.css" fx:controller="com.app.foodguard.controller.NotificationDropdownController" styleClass="notification-dropdown">
-    <TabPane fx:id="tabPane" styleClass="tab-pane">
-        <tabs>
-            <Tab text="Não Lidas" closable="false">
-                <VBox spacing="200" fx:id="unreadMessagesContainer" styleClass="messages-container">
-
-                </VBox>
-            </Tab>
-            <Tab text="Lidas" closable="false">
-                <VBox spacing="200" fx:id="readMessagesContainer" styleClass="messages-container">
-
-                </VBox>
-            </Tab>
-        </tabs>
-    </TabPane>
-
-    <VBox fx:id="notificationsArea" spacing="10" styleClass="notifications-area">
-        <Label text="Notificações" styleClass="message-label"/>
+    <VBox fx:id="notificationsContainer" spacing="10" styleClass="notifications-container">
     </VBox>
 </VBox>

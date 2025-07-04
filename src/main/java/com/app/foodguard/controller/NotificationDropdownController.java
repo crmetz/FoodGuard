@@ -1,20 +1,19 @@
 package com.app.foodguard.controller;
 
-import com.app.foodguard.model.Notification;
 import com.app.foodguard.model.Lote;
+import com.app.foodguard.model.Notification;
 import com.app.foodguard.service.NotificationService;
-import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class NotificationDropdownController {
-    @FXML
-    private VBox unreadMessagesContainer;
-
-    @FXML
-    private VBox readMessagesContainer;
+    public VBox notificationsContainer;
 
     private NotificationService notificationService = new NotificationService();
 
@@ -22,14 +21,26 @@ public class NotificationDropdownController {
         List<Notification> notificacoes = notificationService.verificarValidade(lotes);
 
         for (Notification notificacao : notificacoes) {
-            Label label = new Label(notificacao.getMensagem());
-            label.getStyleClass().add("message-label");
+            Button notificationButton = new Button(notificacao.getMensagem());
+            notificationButton.getStyleClass().add("notification-button");
+            notificationButton.setOnAction(event -> abrirModal(notificacao));
+            notificationsContainer.getChildren().add(notificationButton);
+        }
+    }
 
-            if (notificacao.isLido()) {
-                readMessagesContainer.getChildren().add(label);
-            } else {
-                unreadMessagesContainer.getChildren().add(label);
-            }
+    private void abrirModal(Notification notificacao) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/notification/notification-modal-view.fxml"));
+            VBox modalRoot = loader.load();
+
+            NotificationModalController modalController = loader.getController();
+            modalController.setNotification(notificacao);
+
+            Stage modalStage = new Stage();
+            modalStage.setScene(new Scene(modalRoot));
+            modalStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

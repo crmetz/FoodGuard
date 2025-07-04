@@ -188,6 +188,11 @@
     -fx-padding-top: 8px 20px;
 }
 
+.notification-button:hover {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+}
+
 .tab-pane {
     -fx-tab-min-width: 100px;
     -fx-background-color: -fx-primary;
