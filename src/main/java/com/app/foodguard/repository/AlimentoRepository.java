@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AlimentoRepository {
 
-    private static final String FILE_PATH = "src/main/resources/csv/foods.csv";
+    private static final String FILE_PATH = "src/main/resources/csv/alimentos.csv";
 
     public void save(List<Alimento> alimentos) {
         CsvUtil.save(alimentos, FILE_PATH);

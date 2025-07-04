@@ -79,7 +79,7 @@ public class DashboardController {
 
     @FXML
     private void loadPerfil() {
-        // Implemente a lógica para carregar a tela de perfil
+        loadView("/com/app/foodguard/usuario/usuario-view.fxml");
     }
 
 }
