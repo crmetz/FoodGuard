@@ -1,10 +1,12 @@
 package com.app.foodguard.service;
 
 import com.app.foodguard.model.Doacao;
-import com.app.foodguard.model.Ong;
+import com.app.foodguard.model.Lote;
+import com.app.foodguard.model.Movimentacao;
+import com.app.foodguard.model.enums.TipoSaida;
 import com.app.foodguard.repository.DoacaoRepository;
-import com.app.foodguard.repository.OngRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,19 +21,42 @@ public class DoacaoService {
         return doacaoList;
     }
 
-    public void addDoacao(Doacao doacao) {
-        if (doacaoList == null) {
-            doacaoList = new ArrayList<>();
-        }
+    public void addDoacao(int ongId, Lote lote, float quantidade) {
+        // Criar movimentação
+        Movimentacao movimentacao = new Movimentacao();
+        movimentacao.setLoteId(lote.getId());
+        movimentacao.setReceitaId(0);
+        movimentacao.setTipo(TipoSaida.DOACAO);
+        movimentacao.setQuantidade(quantidade);
+        movimentacao.setData(LocalDate.now());
+
+        int movimentacaoId = new MovimentacaoService().addMovimentacao(movimentacao);
+
+        // Atualizar lote
+        new LoteService().updateQuantidadeAtual(lote.getId(), quantidade, true);
+
+        // Criar doação
+        Doacao doacao = new Doacao();
         doacao.setId(generateNextId());
+        doacao.setOngId(ongId);
+        doacao.setMovimentacaoId(movimentacaoId);
+
         doacaoList.add(doacao);
         DoacaoRepository.save(doacaoList);
     }
 
     public void removeDoacao(Doacao doacao) {
+        // Recarregar movimentação
+        Movimentacao movimentacao = new MovimentacaoService().getMovimentacaoById(doacao.getMovimentacaoId());
+        if (movimentacao != null) {
+            new MovimentacaoService().removeMovimentacao(doacao.getMovimentacaoId());
+            new LoteService().updateQuantidadeAtual(movimentacao.getLoteId(), movimentacao.getQuantidade(), false);
+        }
+
         doacaoList.removeIf(o -> o.getId() == doacao.getId());
         DoacaoRepository.save(doacaoList);
     }
+
 
     public void updateDoacao(Doacao updatedDoacao) {
         for (int i = 0; i < doacaoList.size(); i++) {

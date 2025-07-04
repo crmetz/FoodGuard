@@ -17,6 +17,10 @@ public class OngService {
         return ongList;
     }
 
+    public Ong getOngById(int id) {
+        return ongList.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+    }
+
     public void addOng(Ong ong) {
         if (ongList == null) {
             ongList = new ArrayList<>();

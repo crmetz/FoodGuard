@@ -1,9 +1,12 @@
 package com.app.foodguard.controller;
 
 import com.app.foodguard.model.Doacao;
+import com.app.foodguard.model.Movimentacao;
 import com.app.foodguard.model.Ong;
-import com.app.foodguard.model.Lote;
 import com.app.foodguard.service.DoacaoService;
+import com.app.foodguard.service.MovimentacaoService;
+import com.app.foodguard.service.OngService;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +28,6 @@ public class DoacaoController {
     @FXML private TableColumn<Doacao, Integer> colId;
     @FXML private TableColumn<Doacao, String> colNomeOng;
     @FXML private TableColumn<Doacao, String> colLoteid;
-    @FXML private TableColumn<Doacao, String> colDataValidade;
     @FXML private TableColumn<Doacao, Float> colQuantidade;
     @FXML private TableColumn<Doacao, Void> colAcoes;
 
@@ -39,10 +41,21 @@ public class DoacaoController {
         tabelaDoacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNomeOng.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getOng().getNome()));
-        colLoteid.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getLote().getId())));
-        colDataValidade.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getLote().getDataValidade().toString()));
-        colQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        colNomeOng.setCellValueFactory(data -> {
+            Ong ong = new OngService().getOngById(data.getValue().getOngId());
+            return new SimpleStringProperty(ong != null ? ong.getNome() : "N/A");
+        });
+
+        colLoteid.setCellValueFactory(data -> {
+            Movimentacao movimentacao = new MovimentacaoService().getMovimentacaoById(data.getValue().getMovimentacaoId());
+            return new SimpleStringProperty(movimentacao != null ? String.valueOf(movimentacao.getLoteId()) : "N/A");
+        });
+
+        colQuantidade.setCellValueFactory(data -> {
+            Movimentacao movimentacao = new MovimentacaoService().getMovimentacaoById(data.getValue().getMovimentacaoId());
+            return new SimpleObjectProperty<>(movimentacao != null ? movimentacao.getQuantidade() : 0f);
+        });
+
 
         adicionarBotaoAcoes();
     }

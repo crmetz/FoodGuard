@@ -14,9 +14,14 @@ public class MovimentacaoService {
         this.movimentacaoList = getAllMovimentacoes(); // Load existing data
     }
 
-
     public List<Movimentacao> getAllMovimentacoes() {
         return repository.load();
+    }
+
+    public Movimentacao getMovimentacaoById(int id) {
+        return movimentacaoList.stream().filter(x -> x.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public int addMovimentacao(Movimentacao movimentacao) {
@@ -38,6 +43,5 @@ public class MovimentacaoService {
     private int generateNextId() {
         return movimentacaoList.stream().mapToInt(Movimentacao::getId).max().orElse(0) + 1;
     }
-
 
 }

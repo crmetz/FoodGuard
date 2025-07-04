@@ -29,7 +29,6 @@
                 <TableColumn fx:id="colId" styleClass="column-header" text="ID"/>
                 <TableColumn fx:id="colNomeOng" styleClass="column-header" text="ONG" />
                 <TableColumn fx:id="colLoteid" styleClass="column-header" text="Lote ID" />
-                <TableColumn fx:id="colDataValidade" styleClass="column-header" text="Data Validade" />
                 <TableColumn fx:id="colQuantidade" styleClass="column-header" text="Quantidade" />
                 <TableColumn fx:id="colAcoes" styleClass="column-header" text="Ações" />
             </columns>
