@@ -57,6 +57,12 @@ public class CsvUtil {
 
     private static Object convertValue(Class<?> type, String value) {
         if (value == null || value.isEmpty()) return null;
+
+        if (type.isEnum()) {
+            return Enum.valueOf((Class<Enum>) type, value);
+        }
+
+        if (value == null || value.isEmpty()) return null;
         if (type == int.class || type == Integer.class) return Integer.parseInt(value);
         if (type == float.class || type == Float.class) return Float.parseFloat(value);
         if (type == double.class || type == Double.class) return Double.parseDouble(value);

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.app.foodguard.controller.ReceitaModalController"
+      stylesheets="@../modal.css"
+      spacing="10">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <GridPane hgap="15" vgap="10" styleClass="modal-grid">
+        <Label text="Nome:" styleClass="modal-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtNome" styleClass="form-field" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+
+        <Label text="Tempo de Preparo (min):" styleClass="modal-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtTempoPreparo" styleClass="form-field" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+    </GridPane>
+
+    <Label text="Alimentos da Receita:" styleClass="section-label"/>
+    <TableView fx:id="tabelaAlimentos" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colAlimento" styleClass="column-header" text="Alimento" />
+            <TableColumn fx:id="colQuantidade" styleClass="column-header" text="Quantidade" />
+            <TableColumn fx:id="colUnidade" styleClass="column-header" text="Unidade" />
+            <TableColumn fx:id="colRemover" styleClass="column-header" text="Remover" />
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" styleClass="modal-grid">
+        <ComboBox fx:id="comboAlimentos" styleClass="form-field" prefWidth="200"/>
+        <TextField fx:id="txtQuantidade" styleClass="form-field" promptText="Quantidade" prefWidth="100"/>
+        <Button text="Adicionar" onAction="#onAdicionarAlimento" styleClass="modal-button save"/>
+    </HBox>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT" styleClass="modal-button-container">
+        <Button text="Cancelar" onAction="#onCancelar" styleClass="modal-button cancel"/>
+        <Button text="Salvar" onAction="#onSalvar" defaultButton="true" styleClass="modal-button save"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+
+<BorderPane stylesheets="@../global.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.foodguard.controller.RelatorioController">
+    <top>
+        <HBox styleClass="header-pane" spacing="10">
+            <Label styleClass="header-label" text="Relatório" />
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox spacing="20" style="-fx-padding: 20;">
+                <!-- Card para Movimentações de um lote -->
+                <VBox styleClass="card" onMouseClicked="#abrirRelatorioMovimentacoes">
+                    <Label styleClass="card-title" text="Movimentações de um lote" />
+                    <Label styleClass="card-subtitle" text="Visualize todas as movimentações de um determinado lote" />
+                </VBox>
+
+                <!-- Adicione mais cards aqui para outros relatórios -->
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
