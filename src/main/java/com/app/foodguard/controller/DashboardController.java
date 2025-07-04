@@ -85,7 +85,7 @@ public class DashboardController {
 
     @FXML
     private void loadRelatorios() {
-        loadView("/com/app/foodguard/Estoque/estoque-view.fxml");
+        loadView("/com/app/foodguard/relatorio/relatorio-view.fxml");
     }
 
     private void loadView(String fxmlPath) {
@@ -99,6 +99,6 @@ public class DashboardController {
 
     @FXML
     private void loadPerfil() {
-        // Implemente a lógica para carregar a tela de perfil
+        loadView("/com/app/foodguard/usuario/usuario-view.fxml");
     }
 }

@@ -54,14 +54,17 @@ public class ReceitaController {
                     ContextMenu contextMenu = new ContextMenu();
                     MenuItem editar = new MenuItem("Editar");
                     MenuItem excluir = new MenuItem("Excluir");
+                    MenuItem executar = new MenuItem("Executar Receita");
 
                     editar.setOnAction(ev -> abrirModalEditar(receita));
                     excluir.setOnAction(ev -> {
                         receitaService.removeReceita(receita);
                         receitas.remove(receita);
                     });
+                    executar.setOnAction(ev -> abrirModalExecutarReceita(receita)); // Novo método
 
-                    contextMenu.getItems().addAll(editar, excluir);
+
+                    contextMenu.getItems().addAll(editar, excluir, executar);
                     contextMenu.show(btn, Side.BOTTOM, 0, 0);
                 });
             }
@@ -111,6 +114,24 @@ public class ReceitaController {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Editar Receita");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirModalExecutarReceita(Receita receita) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/receita/receita-execucao-modal-view.fxml"));
+            Parent root = loader.load();
+
+            ReceitaExecucaoModalController controller = loader.getController();
+            controller.setReceita(receita);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Executar Receita: " + receita.getNome());
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (IOException e) {

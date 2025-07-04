@@ -5,6 +5,7 @@ import com.app.foodguard.repository.AlimentoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AlimentoService {
     private List<Alimento> foodList;
@@ -41,6 +42,13 @@ public class AlimentoService {
             }
         }
         alimentoRepository.save(foodList);
+    }
+
+    public Alimento getAlimentoById(int id) {
+        Optional<Alimento> alimento = foodList.stream()
+                .filter(a -> a.getId() == id)
+                .findFirst();
+        return alimento.orElse(null);
     }
 
     private int generateNextId() {
