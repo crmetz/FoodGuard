@@ -5,28 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class MainApplication extends Application {
     private static Stage primaryStage;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        primaryStage = stage;
-        loadScene("dashboard/dashboard-view.fxml");
-
-        primaryStage.setMaximized(true);
-        primaryStage.setFullScreen(false);
-    }
-
-    public static void loadScene(String fxmlFile) {
+    public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/com/app/foodguard/" + fxmlFile));
-            Scene scene = new Scene(fxmlLoader.load());
+            primaryStage = stage;
+
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/com/app/foodguard/dashboard/dashboard-view.fxml"));
+            Scene scene = new Scene(loader.load());
+
             primaryStage.setScene(scene);
+            primaryStage.setMaximized(true);
             primaryStage.show();
-        } catch (IOException e) {
-            System.err.println("Error loading FXML: " + e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

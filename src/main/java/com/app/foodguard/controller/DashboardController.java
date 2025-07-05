@@ -6,22 +6,35 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.List;
+import com.app.foodguard.model.Lote;
 
 public class DashboardController {
 
     @FXML private StackPane dynamicContent;
 
+    private DashboardContentController dashboardContentController;
+    private List<Lote> lotesPendentes;
+
     @FXML
     public void initialize() {
         loadDashboardContent();
-
     }
 
     @FXML
     private void loadDashboardContent() {
         try {
-            Parent dashboardView = FXMLLoader.load(getClass().getResource("/com/app/foodguard/dashboard/dashboard-content-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/dashboard/dashboard-content-view.fxml"));
+            Parent dashboardView = loader.load();
+
+            dashboardContentController = loader.getController();
             dynamicContent.getChildren().setAll(dashboardView);
+
+            if (lotesPendentes != null) {
+                dashboardContentController.carregarNotificacoes(lotesPendentes);
+                lotesPendentes = null;
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,5 +94,4 @@ public class DashboardController {
     private void loadPerfil() {
         loadView("/com/app/foodguard/usuario/usuario-view.fxml");
     }
-
 }

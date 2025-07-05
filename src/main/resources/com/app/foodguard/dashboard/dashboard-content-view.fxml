@@ -4,14 +4,14 @@
 <?import javafx.scene.layout.*?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.app.foodguard.controller.DashboardContentController">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.app.foodguard.controller.DashboardContentController" stylesheets="@../global.css">
     <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="top-bar">
         <Label fx:id="greetingLabel" text="Olá, Usuário" styleClass="greeting-label"/>
         <Region HBox.hgrow="ALWAYS"/>
 
-        <Button styleClass="notification-button">
+        <Button fx:id="notificationMainButton" styleClass="menu-button">
             <graphic>
-                <FontAwesomeIconView glyphName="BELL" size="1.2em" />
+                <FontAwesomeIconView id="bell" glyphName="BELL" size="1.2em" />
             </graphic>
         </Button>
     </HBox>

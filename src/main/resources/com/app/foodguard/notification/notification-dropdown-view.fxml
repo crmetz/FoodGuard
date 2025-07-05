@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" stylesheets="@../global.css" fx:controller="com.app.foodguard.controller.NotificationDropdownController" styleClass="notification-dropdown">
+    <VBox fx:id="notificationsContainer" spacing="10" styleClass="notifications-container">
+    </VBox>
+</VBox>
