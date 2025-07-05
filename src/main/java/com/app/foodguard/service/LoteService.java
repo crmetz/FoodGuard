@@ -16,6 +16,17 @@ public class LoteService {
         this.lotes = loteRepository.load();
     }
 
+    public List<Lote> getAllLotes() {
+        return lotes;
+    }
+
+    public Lote getLoteById(int id) {
+        return getAllLotes().stream()
+                .filter(l -> l.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
     public void addLote(Lote lote) {
         lote.setId(gerarProximoId());
         lotes.add(lote);
@@ -57,10 +68,6 @@ public class LoteService {
         return lotes.stream()
                 .filter(l -> l.getAlimentoId() == alimentoId)
                 .collect(Collectors.toList());
-    }
-
-    public List<Lote> getAllLotes() {
-        return lotes;
     }
 
     public void updateQuantidadeAtual(int loteId, float quantidade, boolean isSubtraction) {

@@ -13,9 +13,6 @@
         <VBox styleClass="sidebar" minWidth="200" spacing="15">
             <!-- Logo e Nome -->
             <HBox styleClass="logo-container" alignment="CENTER_LEFT" spacing="10" onMouseClicked="#loadDashboardContent">
-                <ImageView fitWidth="40" fitHeight="40" preserveRatio="true">
-                    <!-- <Image url="@../images/logo.png"/> -->
-                </ImageView>
                 <Label text="FoodGuard" styleClass="logo-title"/>
             </HBox>
 
@@ -29,13 +26,13 @@
 
                 <Button styleClass="menu-button" text="Categorias" onAction="#loadCategorias">
                     <graphic>
-                        <FontAwesomeIconView glyphName="CHART_BAR" size="1.2em"/>
+                        <FontAwesomeIconView glyphName="AREA_CHART" size="1.2em"/>
                     </graphic>
                 </Button>
 
                 <Button styleClass="menu-button" text="Estoque" onAction="#loadEstoque">
                     <graphic>
-                        <FontAwesomeIconView glyphName="BOXES" size="1.2em"/>
+                        <FontAwesomeIconView glyphName="CUBES" size="1.2em"/>
                     </graphic>
                 </Button>
 
@@ -53,7 +50,7 @@
 
                 <Button styleClass="menu-button" text="Doações" onAction="#loadDoacoes">
                     <graphic>
-                        <FontAwesomeIconView glyphName="HANDS_HELPING" size="1.2em"/>
+                        <FontAwesomeIconView glyphName="GIFT" size="1.2em"/>
                     </graphic>
                 </Button>
 
@@ -65,7 +62,7 @@
 
                 <Button styleClass="menu-button" text="Relatórios" onAction="#loadRelatorios">
                     <graphic>
-                        <FontAwesomeIconView glyphName="CHART_BAR" size="1.2em"/>
+                        <FontAwesomeIconView glyphName="BAR_CHART" size="1.2em"/>
                     </graphic>
                 </Button>
             </VBox>
