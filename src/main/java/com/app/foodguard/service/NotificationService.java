@@ -13,10 +13,8 @@ public class NotificationService {
         LocalDate hoje = LocalDate.now();
 
         for (Lote lote : lotes) {
-            if (lote.getDataValidade().isBefore(hoje.plusDays(2))) {
-                String mensagem = String.format("O alimento %s está prestes a vencer, data de validade: %s",
-                        lote.getCodigo(), lote.getDataValidade());
-                notificacoes.add(new Notification(mensagem, false));
+            if (lote.getDataValidade().isBefore(hoje.plusDays(3))) {
+                notificacoes.add(new Notification(lote, false));
             }
         }
 

@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class NotificationDropdownController {
@@ -18,29 +19,14 @@ public class NotificationDropdownController {
     private NotificationService notificationService = new NotificationService();
 
     public void carregarNotificacoes(List<Lote> lotes) {
+        notificationsContainer.getChildren().clear();
         List<Notification> notificacoes = notificationService.verificarValidade(lotes);
-
         for (Notification notificacao : notificacoes) {
-            Button notificationButton = new Button(notificacao.getMensagem());
+            Lote lote = notificacao.getLote();
+            Button notificationButton = new Button("Lote: " + lote.getCodigo() + "\nData de Validade: " + lote.getDataValidade());
             notificationButton.getStyleClass().add("notification-button");
-            notificationButton.setOnAction(event -> abrirModal(notificacao));
+            notificationButton.setMaxWidth(Double.MAX_VALUE);
             notificationsContainer.getChildren().add(notificationButton);
-        }
-    }
-
-    private void abrirModal(Notification notificacao) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/notification/notification-modal-view.fxml"));
-            VBox modalRoot = loader.load();
-
-            NotificationModalController modalController = loader.getController();
-            modalController.setNotification(notificacao);
-
-            Stage modalStage = new Stage();
-            modalStage.setScene(new Scene(modalRoot));
-            modalStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

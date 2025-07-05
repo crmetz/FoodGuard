@@ -14,7 +14,7 @@ public class DashboardController {
     @FXML private StackPane dynamicContent;
 
     private DashboardContentController dashboardContentController;
-    private List<Lote> lotesPendentes; // buffer, caso content ainda não esteja pronto
+    private List<Lote> lotesPendentes;
 
     @FXML
     public void initialize() {
@@ -40,13 +40,6 @@ public class DashboardController {
         }
     }
 
-    public void carregarNotificacoes(List<Lote> lotes) {
-        if (dashboardContentController != null) {
-            dashboardContentController.carregarNotificacoes(lotes);
-        } else {
-            this.lotesPendentes = lotes;
-        }
-    }
     // Métodos para carregar as telas
     @FXML
     private void loadAlimentos() {
