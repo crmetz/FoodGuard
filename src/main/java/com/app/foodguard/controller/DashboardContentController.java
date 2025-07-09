@@ -20,6 +20,7 @@ import java.io.InputStream;
 import com.app.foodguard.model.Desperdicio;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
+import java.io.FileReader;
 
 public class DashboardContentController {
     @FXML private Label greetingLabel;
@@ -125,9 +126,7 @@ public class DashboardContentController {
     }
 
     private void carregarTotalDoacoes() {
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/csv/movimentacoes.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/csv/movimentacoes.csv"))) {
 
             float totalDoacoes = 0;
 
