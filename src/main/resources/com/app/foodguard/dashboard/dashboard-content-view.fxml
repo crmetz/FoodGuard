@@ -16,8 +16,23 @@
         </Button>
     </HBox>
 
-    <VBox spacing="20" styleClass="charts-calendar-placeholder">
-        <Label text="Gráficos (Placeholder)" styleClass="placeholder-text"/>
-        <Label text="Calendário (Placeholder)" styleClass="placeholder-text"/>
-    </VBox>
+    <HBox spacing="100" alignment="TOP_LEFT" styleClass="charts-calendar-placeholder">
+
+        <VBox spacing="10" alignment="TOP_LEFT" prefWidth="254">
+            <Label text="Quantidade Desperdiçada" styleClass="header-label"/>
+            <TableView fx:id="tabelaLotes" styleClass="table-view">
+                <columns>
+                    <TableColumn styleClass="column-header" fx:id="colAlimento" prefWidth="150" text="Alimento"/>
+                    <TableColumn styleClass="column-header" fx:id="colQtdDes" prefWidth="100" text="Quantidade"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+
+        <VBox spacing="10" alignment="TOP_CENTER" prefWidth="200">
+            <Label text="Total de Doações" styleClass="header-label"/>
+            <Label fx:id="labelTotalDoacoes" text="0" styleClass="highlight-label"/>
+        </VBox>
+    </HBox>
+
 </VBox>
