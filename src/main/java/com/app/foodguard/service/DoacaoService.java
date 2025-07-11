@@ -46,7 +46,7 @@ public class DoacaoService {
     }
 
     public void removeDoacao(Doacao doacao) {
-        // Recarregar movimentação
+
         Movimentacao movimentacao = new MovimentacaoService().getMovimentacaoById(doacao.getMovimentacaoId());
         if (movimentacao != null) {
             new MovimentacaoService().removeMovimentacao(doacao.getMovimentacaoId());

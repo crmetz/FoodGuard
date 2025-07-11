@@ -2,6 +2,7 @@ package com.app.foodguard.controller;
 
 import com.app.foodguard.model.Lote;
 import com.app.foodguard.service.LoteService;
+import com.app.foodguard.model.Desperdicio;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,11 +14,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.io.InputStream;
-import com.app.foodguard.model.Desperdicio;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import java.io.FileReader;
@@ -87,38 +85,24 @@ public class DashboardContentController {
     }
 
     private void carregarTabelaDesperdicio() {
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/csv/desperdicio.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/csv/movimentacoes.csv"))) {
 
-            Map<String, Integer> desperdicioMap = new HashMap<>();
+            ObservableList<Desperdicio> lista = FXCollections.observableArrayList();
 
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] partes = linha.split(";");
-                if (partes.length >= 4) {
-                    String alimento = partes[2];
-                    int quantidade = Integer.parseInt(partes[1]);
+                if (partes.length >= 5 && "DESPERDICIO".equalsIgnoreCase(partes[3])) {
+                    String lote = partes[1];
+                    String quantidade = partes[4];
 
-                    desperdicioMap.put(alimento, desperdicioMap.getOrDefault(alimento, 0) + quantidade);
+                    lista.add(new Desperdicio(0, 0, lote, quantidade));
                 }
             }
 
-            List<Map.Entry<String, Integer>> topDesperdicio = desperdicioMap.entrySet()
-                    .stream()
-                    .sorted((a, b) -> b.getValue().compareTo(a.getValue()))
-                    .limit(5)
-                    .toList();
-
-            ObservableList<Desperdicio> dadosTabela = FXCollections.observableArrayList();
-            for (Map.Entry<String, Integer> entry : topDesperdicio) {
-                dadosTabela.add(new Desperdicio(0, 0, entry.getKey(), String.valueOf(entry.getValue())));
-            }
-
-            tabelaLotes.setItems(dadosTabela);
-
             colAlimento.setCellValueFactory(new PropertyValueFactory<>("motivo"));
             colQtdDes.setCellValueFactory(new PropertyValueFactory<>("observacao"));
+            tabelaLotes.setItems(lista);
 
         } catch (Exception e) {
             e.printStackTrace();

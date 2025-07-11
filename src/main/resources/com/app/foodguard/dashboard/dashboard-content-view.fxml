@@ -22,7 +22,7 @@
             <Label text="Quantidade Desperdiçada" styleClass="header-label"/>
             <TableView fx:id="tabelaLotes" styleClass="table-view">
                 <columns>
-                    <TableColumn styleClass="column-header" fx:id="colAlimento" prefWidth="150" text="Alimento"/>
+                    <TableColumn styleClass="column-header" fx:id="colAlimento" prefWidth="150" text="Lote"/>
                     <TableColumn styleClass="column-header" fx:id="colQtdDes" prefWidth="100" text="Quantidade"/>
                 </columns>
             </TableView>

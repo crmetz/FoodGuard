@@ -11,16 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DesperdicioService {
-    private final List<DesperdicioDTO> desperdicioList;
+    private List<DesperdicioDTO> desperdicioList;
     private final DesperdicioRepository desperdicioRepository;
 
     public DesperdicioService() {
         desperdicioRepository = new DesperdicioRepository();
-        desperdicioList = loadDesperdicios(); // Load existing data
+        desperdicioList = loadDesperdicios(); // Carrega na inicialização
     }
 
     public List<DesperdicioDTO> getAllDesperdicios() {
-        return loadDesperdicios();
+        // Retorna lista atualizada
+        desperdicioList = loadDesperdicios();
+        return desperdicioList;
     }
 
     public void addDesperdicio(DesperdicioDTO desperdicioDTO) {
@@ -30,27 +32,32 @@ public class DesperdicioService {
         // salvar desperdicio
         desperdicioDTO.setMovimentacaoId(movimentacaoId);
         desperdicioDTO.setId(generateNextId());
-        desperdicioList.add(desperdicioDTO);
 
         List<Desperdicio> newList = desperdicioRepository.load();
         newList.add(new Desperdicio(desperdicioDTO));
         desperdicioRepository.save(newList);
 
-        // atualizar quatidade atual do lote
+        // atualizar quantidade atual do lote
         new LoteService().updateQuantidadeAtual(desperdicioDTO.getLoteId(), desperdicioDTO.getQuantidade(), true);
+
+        // Atualiza lista em memória
+        desperdicioList = loadDesperdicios();
     }
 
     public void removeDesperdicio(DesperdicioDTO desperdicioDTO) {
         // remove movimentacao
-       new MovimentacaoService().removeMovimentacao(desperdicioDTO.getMovimentacaoId());
+        new MovimentacaoService().removeMovimentacao(desperdicioDTO.getMovimentacaoId());
 
-        // remove desperdicio
+        // remove desperdício
         List<Desperdicio> newList = desperdicioRepository.load();
         newList.removeIf(a -> a.getId() == desperdicioDTO.getId());
         desperdicioRepository.save(newList);
 
         // atualizar quantidade atual do lote
         new LoteService().updateQuantidadeAtual(desperdicioDTO.getLoteId(), desperdicioDTO.getQuantidade(), false);
+
+        // Atualiza lista em memória
+        desperdicioList = loadDesperdicios();
     }
 
     private List<DesperdicioDTO> loadDesperdicios() {
@@ -59,45 +66,49 @@ public class DesperdicioService {
         List<Lote> lotes = new LoteService().getAllLotes();
         List<Alimento> alimentos = new AlimentoService().getAllFoods();
 
-        if (desperdicios != null && !desperdicios.isEmpty()) {
-            List<DesperdicioDTO> desperdicioDTOs = new ArrayList<>();
-            for (Desperdicio desperdicio : desperdicios) {
-                DesperdicioDTO dto = new DesperdicioDTO();
-                Movimentacao movimentacao = movimentacoes.stream()
-                        .filter(m -> m.getId() == desperdicio.getMovimentacaoId())
-                        .findFirst()
-                        .orElse(null);
+        List<DesperdicioDTO> desperdicioDTOs = new ArrayList<>();
 
-                Lote lote = lotes.stream()
-                        .filter(l -> l.getId() == movimentacao.getLoteId())
-                        .findFirst()
-                        .orElse(null);
+        for (Desperdicio desperdicio : desperdicios) {
+            DesperdicioDTO dto = new DesperdicioDTO();
+            Movimentacao movimentacao = movimentacoes.stream()
+                    .filter(m -> m.getId() == desperdicio.getMovimentacaoId())
+                    .findFirst()
+                    .orElse(null);
 
-                Alimento alimento = alimentos.stream().filter(x -> x.getId() == lote.getAlimentoId())
-                        .findFirst()
-                        .orElse(null);
+            if (movimentacao == null) continue;
 
-                dto.setAlimento(alimento.getNome());
-                dto.setQuantidade(movimentacao.getQuantidade());
-                dto.setData(movimentacao.getData());
-                dto.setQuantidade(movimentacao.getQuantidade());
-                dto.setUnidadeMedida(alimento.getUnidadeMedida());
-                dto.setLoteId(movimentacao.getLoteId());
-                dto.setObservacao(desperdicio.getObservacao());
-                dto.setMotivo(desperdicio.getMotivo());
-                dto.setId(desperdicio.getId());
-                dto.setMovimentacaoId(desperdicio.getId());
+            Lote lote = lotes.stream()
+                    .filter(l -> l.getId() == movimentacao.getLoteId())
+                    .findFirst()
+                    .orElse(null);
 
+            if (lote == null) continue;
 
-                desperdicioDTOs.add(dto);
-            }
-            return desperdicioDTOs;
+            Alimento alimento = alimentos.stream()
+                    .filter(x -> x.getId() == lote.getAlimentoId())
+                    .findFirst()
+                    .orElse(null);
+
+            if (alimento == null) continue;
+
+            dto.setAlimento(alimento.getNome());
+            dto.setQuantidade(movimentacao.getQuantidade());
+            dto.setData(movimentacao.getData());
+            dto.setUnidadeMedida(alimento.getUnidadeMedida());
+            dto.setLoteId(movimentacao.getLoteId());
+            dto.setObservacao(desperdicio.getObservacao());
+            dto.setMotivo(desperdicio.getMotivo());
+            dto.setId(desperdicio.getId());
+            dto.setMovimentacaoId(desperdicio.getMovimentacaoId());
+
+            desperdicioDTOs.add(dto);
         }
 
-        return new ArrayList<>();
+        return desperdicioDTOs;
     }
 
     private int generateNextId() {
-        return desperdicioList.stream().mapToInt(Desperdicio::getId).max().orElse(0) + 1;
+        List<Desperdicio> all = desperdicioRepository.load();
+        return all.stream().mapToInt(Desperdicio::getId).max().orElse(0) + 1;
     }
 }
