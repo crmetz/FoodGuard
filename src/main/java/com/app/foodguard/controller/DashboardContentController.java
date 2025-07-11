@@ -33,7 +33,7 @@ public class DashboardContentController {
 
     @FXML
     public void initialize() {
-        greetingLabel.setText("Olá, " + "Nome do Usuário");
+        boasVindasUsuario();
 
         notificationMainButton.setOnAction(event -> {
             toggleNotificationDropdown();
@@ -42,6 +42,22 @@ public class DashboardContentController {
         carregarTabelaDesperdicio();
 
         carregarTotalDoacoes();
+    }
+
+    private void boasVindasUsuario() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/csv/usuario.csv"))) {
+            String linha = reader.readLine();
+            if (linha != null) {
+                String[] partes = linha.split(";");
+                if (partes.length >= 2) {
+                    String nome = partes[1];
+                    greetingLabel.setText("Olá, " + nome);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            greetingLabel.setText("Olá, usuário");
+        }
     }
 
     private void toggleNotificationDropdown() {
