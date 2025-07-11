@@ -26,13 +26,11 @@ public class AlimentoController {
     @FXML private TableView<Alimento> tabelaAlimentos;
     @FXML private TableColumn<Alimento, Integer> colId;
     @FXML private TableColumn<Alimento, String> colNome;
-    @FXML private TableColumn<Alimento, String> colDataValidade;
     @FXML private TableColumn<Alimento, String> colUnidadeMedida;
     @FXML private TableColumn<Alimento, String> colMarca;
     @FXML private TableColumn<Alimento, String> colCategoria;
     @FXML private TableColumn<Alimento, String> colCodigoDeBarras;
     @FXML private TableColumn<Alimento, String> colObservacoes;
-    @FXML private TableColumn<Alimento, String> colImagem;
     @FXML private TableColumn<Alimento, Void> colAcoes;
 
     private AlimentoService alimentoService;
@@ -60,12 +58,10 @@ public class AlimentoController {
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));
-        colDataValidade.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDataValidade().toString()));
         colUnidadeMedida.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUnidadeMedida()));
         colMarca.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMarca()));
         colCodigoDeBarras.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCodigoDeBarras()));
         colObservacoes.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getObservacoes()));
-        colImagem.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getImagem()));
 
         adicionarBotaoAcoes();
     }
