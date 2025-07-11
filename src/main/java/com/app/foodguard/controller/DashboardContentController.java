@@ -3,6 +3,7 @@ package com.app.foodguard.controller;
 import com.app.foodguard.model.Lote;
 import com.app.foodguard.service.LoteService;
 import com.app.foodguard.model.Desperdicio;
+import com.app.foodguard.service.UsuarioService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,7 +34,9 @@ public class DashboardContentController {
 
     @FXML
     public void initialize() {
-        greetingLabel.setText("Olá, " + "Nome do Usuário");
+        String usuario =  new UsuarioService().getUsuario().getNome();
+
+        greetingLabel.setText("Olá, " + usuario);
 
         notificationMainButton.setOnAction(event -> {
             toggleNotificationDropdown();

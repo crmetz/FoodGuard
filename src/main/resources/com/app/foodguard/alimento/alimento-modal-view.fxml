@@ -35,9 +35,6 @@
 
             <Label text="Observações:" styleClass="modal-label" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
             <TextArea fx:id="txtObservacoes" styleClass="form-field" prefRowCount="3" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-
-            <Label text="URL da Imagem:" styleClass="modal-label" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtImagem" styleClass="form-field" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
         </GridPane>
     </center>
 

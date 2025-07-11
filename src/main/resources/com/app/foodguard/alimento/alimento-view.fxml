@@ -34,7 +34,6 @@
                 <TableColumn fx:id="colCategoria" styleClass="column-header" text="Categoria" />
                 <TableColumn fx:id="colCodigoDeBarras" styleClass="column-header" text="Código de Barras" />
                 <TableColumn fx:id="colObservacoes" styleClass="column-header" text="Observações" />
-                <TableColumn fx:id="colImagem" styleClass="column-header" text="Imagem" />
                 <TableColumn fx:id="colAcoes" styleClass="column-header" />
             </columns>
         </TableView>

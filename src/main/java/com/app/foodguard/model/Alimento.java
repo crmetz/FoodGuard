@@ -19,5 +19,5 @@ public class Alimento {
     private int categoriaId;
     private String codigoDeBarras;
     private String observacoes;
-    private String imagem;
+
 }

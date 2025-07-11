@@ -32,7 +32,6 @@ public class AlimentoController {
     @FXML private TableColumn<Alimento, String> colCategoria;
     @FXML private TableColumn<Alimento, String> colCodigoDeBarras;
     @FXML private TableColumn<Alimento, String> colObservacoes;
-    @FXML private TableColumn<Alimento, String> colImagem;
     @FXML private TableColumn<Alimento, Void> colAcoes;
 
     private AlimentoService alimentoService;
@@ -65,7 +64,6 @@ public class AlimentoController {
         colMarca.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMarca()));
         colCodigoDeBarras.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCodigoDeBarras()));
         colObservacoes.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getObservacoes()));
-        colImagem.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getImagem()));
 
         adicionarBotaoAcoes();
     }

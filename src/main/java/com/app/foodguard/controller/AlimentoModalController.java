@@ -50,7 +50,6 @@ public class AlimentoModalController {
         txtMarca.setText(alimento.getMarca());
         txtCodigoDeBarras.setText(alimento.getCodigoDeBarras());
         txtObservacoes.setText(alimento.getObservacoes());
-        txtImagem.setText(alimento.getImagem());
 
         // Set categoria
         String categoriaFormatado = categoriaService.getAllCategorias().stream()
@@ -87,7 +86,6 @@ public class AlimentoModalController {
                 alimentoExistente.setMarca(marca);
                 alimentoExistente.setCodigoDeBarras(codigo);
                 alimentoExistente.setObservacoes(observacoes);
-                alimentoExistente.setImagem(imagem);
                 alimentoExistente.setCategoriaId(categoria);
 
                 alimentoService.updateFood(alimentoExistente);
@@ -101,7 +99,6 @@ public class AlimentoModalController {
                 novo.setMarca(marca);
                 novo.setCodigoDeBarras(codigo);
                 novo.setObservacoes(observacoes);
-                novo.setImagem(imagem);
                 novo.setCategoriaId(categoria);
 
                 alimentoService.addFood(novo);
