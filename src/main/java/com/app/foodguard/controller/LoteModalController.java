@@ -4,9 +4,11 @@ import com.app.foodguard.model.Lote;
 import com.app.foodguard.service.AlimentoService;
 import com.app.foodguard.service.LoteService;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +24,9 @@ public class LoteModalController {
     private final LoteService loteService = new LoteService();
     private final AlimentoService alimentoService = new AlimentoService();
     private Lote loteExistente;
+    @Setter
+    private ObservableList<Lote> lotes;
+
 
     public void setLoteExistente(Lote lote) {
         this.loteExistente = lote;
@@ -76,6 +81,14 @@ public class LoteModalController {
                 loteExistente.setQtdInicial(quantidade);
                 loteExistente.setDataValidade(validade);
                 loteService.updateLote(loteExistente);
+
+                if (lotes != null) {
+                    // Força atualização da tabela
+                    int index = lotes.indexOf(loteExistente);
+                    if (index >= 0) {
+                        lotes.set(index, loteExistente);
+                    }
+                }
             } else {
                 Lote novoLote = new Lote(
                         0,
@@ -87,6 +100,9 @@ public class LoteModalController {
                         codigo
                 );
                 loteService.addLote(novoLote);
+                if (lotes != null) {
+                    lotes.add(novoLote);
+                }
             }
 
             fecharJanela();

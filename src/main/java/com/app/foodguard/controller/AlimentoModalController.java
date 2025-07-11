@@ -15,7 +15,6 @@ import java.time.LocalDate;
 public class AlimentoModalController {
 
     @FXML private TextField txtNome;
-    @FXML private DatePicker dateValidade;
     @FXML private TextField txtUnidadeMedida;
     @FXML private TextField txtMarca;
     @FXML private TextField txtCodigoDeBarras;
@@ -45,7 +44,6 @@ public class AlimentoModalController {
 
     private void preencherCampos(Alimento alimento) {
         txtNome.setText(alimento.getNome());
-        dateValidade.setValue(alimento.getDataValidade());
         txtUnidadeMedida.setText(alimento.getUnidadeMedida());
         txtMarca.setText(alimento.getMarca());
         txtCodigoDeBarras.setText(alimento.getCodigoDeBarras());
@@ -64,12 +62,10 @@ public class AlimentoModalController {
     private void onSalvar() {
         try {
             String nome = txtNome.getText();
-            LocalDate validade = dateValidade.getValue();
             String unidadeMedida = txtUnidadeMedida.getText();
             String marca = txtMarca.getText();
             String codigo = txtCodigoDeBarras.getText();
             String observacoes = txtObservacoes.getText();
-            String imagem = txtImagem.getText();
             String categoriaSelecionada = comboCategoria.getValue();
             if (categoriaSelecionada == null || !categoriaSelecionada.contains("-")) {
                 mostrarAlerta("Categoria inválida", "Por favor, selecione uma categoria válida.");
@@ -81,7 +77,6 @@ public class AlimentoModalController {
             if (alimentoExistente != null) {
                 // Atualizar alimento existente
                 alimentoExistente.setNome(nome);
-                alimentoExistente.setDataValidade(validade);
                 alimentoExistente.setUnidadeMedida(unidadeMedida);
                 alimentoExistente.setMarca(marca);
                 alimentoExistente.setCodigoDeBarras(codigo);
@@ -94,7 +89,6 @@ public class AlimentoModalController {
                 // Criar novo alimento
                 Alimento novo = new Alimento();
                 novo.setNome(nome);
-                novo.setDataValidade(validade);
                 novo.setUnidadeMedida(unidadeMedida);
                 novo.setMarca(marca);
                 novo.setCodigoDeBarras(codigo);

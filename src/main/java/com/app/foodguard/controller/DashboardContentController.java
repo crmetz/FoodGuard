@@ -1,6 +1,7 @@
 package com.app.foodguard.controller;
 
 import com.app.foodguard.model.Lote;
+import com.app.foodguard.model.Usuario;
 import com.app.foodguard.service.LoteService;
 import com.app.foodguard.model.Desperdicio;
 import com.app.foodguard.service.UsuarioService;
@@ -20,6 +21,7 @@ import java.util.Map;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import java.io.FileReader;
+import java.util.Optional;
 
 public class DashboardContentController {
     @FXML private Label greetingLabel;
@@ -34,7 +36,8 @@ public class DashboardContentController {
 
     @FXML
     public void initialize() {
-        String usuario =  new UsuarioService().getUsuario().getNome();
+        Optional<Usuario> usuarioOpt = Optional.ofNullable(new UsuarioService().getUsuario());
+        String usuario = usuarioOpt.map(Usuario::getNome).orElse("");
 
         greetingLabel.setText("Olá, " + usuario);
 
@@ -48,7 +51,6 @@ public class DashboardContentController {
     }
 
     private void toggleNotificationDropdown() {
-        System.out.println("clicado");
         if (notificationPopup != null && notificationPopup.isShowing()) {
             notificationPopup.hide();
             return;
@@ -73,10 +75,8 @@ public class DashboardContentController {
             double y = notificationMainButton.localToScreen(notificationMainButton.getBoundsInLocal()).getMaxY() + 5;
 
             notificationPopup.show(notificationMainButton, x, y);
-            System.out.println("chegou aqui?");
 
         } catch (Exception e) {
-            System.out.println("deu pau");
             e.printStackTrace();
         }
     }

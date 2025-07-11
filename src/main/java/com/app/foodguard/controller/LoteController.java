@@ -134,16 +134,15 @@ public class LoteController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/app/foodguard/lote/lote-modal-view.fxml"));
             Parent root = loader.load();
 
+            LoteModalController controller = loader.getController();
+            controller.setLotes(lotes);
+
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Novo Lote");
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
-            if (comboAlimentos.getValue() != null) {
-                int alimentoId = Integer.parseInt(comboAlimentos.getValue().split("-")[0].trim());
-                atualizarTabelaLotes(alimentoId);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -12,7 +12,6 @@ import java.time.LocalDate;
 public class Alimento {
     private int id;
     private String nome;
-    private LocalDate dataValidade;
     private float quantidade;
     private String unidadeMedida;
     private String marca;

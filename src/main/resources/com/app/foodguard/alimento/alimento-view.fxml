@@ -28,7 +28,6 @@
             <columns>
                 <TableColumn fx:id="colId" styleClass="column-header" text="ID" />
                 <TableColumn fx:id="colNome" styleClass="column-header" text="Nome" />
-                <TableColumn fx:id="colDataValidade" styleClass="column-header" text="Validade" />
                 <TableColumn fx:id="colUnidadeMedida" styleClass="column-header" text="Unidade" />
                 <TableColumn fx:id="colMarca" styleClass="column-header" text="Marca" />
                 <TableColumn fx:id="colCategoria" styleClass="column-header" text="Categoria" />
